@@ -285,7 +285,7 @@ def get_rent_users(id):
                 "Rent Date" : bookx.rent_date,
                 "Rent Due" : bookx.rent_due
                  
-            }for bookx in Administration.query.filter_by(user_id=id)
+            }for bookx in rent
         ])
 
 @app.route('/rents/books/<id>', methods=['GET'])
@@ -301,7 +301,7 @@ def get_rent_books(id):
                 "Rent Due" : userx.rent_due,
                 "Is returned" : userx.is_returned
                  
-            }for userx in Administration.query.filter_by(book_id=id)
+            }for userx in rent
         ])
 
 @app.route('/rents/',methods=['POST']) # PEMINJAMAN
