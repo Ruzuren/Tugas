@@ -14,7 +14,8 @@ function createHTMLRow(data) {
     viewbutton.appendChild(insideButton)
     viewbutton.onclick = () => {
         // pindah ke view.html dengan querystring data.id
-        window.location.href = "view.html?id=" + data.id   
+        window.location.href = "view.html?id=" + data.id  
+        // window.location.href = "userdata.html?id=" + data.id 
     }
     
     // delete button ==============================
