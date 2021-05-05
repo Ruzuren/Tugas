@@ -1,3 +1,4 @@
+from flask_cors import CORS, cross_origin
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -11,6 +12,14 @@ app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:123456@localhost:54
 app.config['SECRET_KEY']='secret'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
+
+cors_config = {
+    # "origins": ["http://127.0.0.1:5500"],
+    "methods": ["POST", "GET", "PUT", "DELETE"]
+}
+CORS(app, resources={
+    r"/*": cors_config
+})
 
 #################################################################################################
 
@@ -80,7 +89,7 @@ def get_auth(user_name, password):
     return Userz.query.filter_by(user_name=user_name, password=password).first()
 
 def return_user(u):
-    return {'user id' : u.user_id,'username':u.user_name,'full name':u.full_name, 'email' : u.email, 'is admin': u.is_admin}
+    return {'user_id' : u.user_id,'username':u.user_name,'full_name':u.full_name,'password':u.password ,'email' : u.email, 'is admin': u.is_admin}
 
 def return_book(b):
     return {'book id' : b.book_id,'book name':b.book_name, 'author': b.book_author,
@@ -184,6 +193,31 @@ def create_user():
     db.session.commit()
     return  return_user(u), 201
 
+@app.route('/users_create/',methods=['POST'])
+def create_userjs():
+    data = request.get_json()
+    # if not 'user_name' in data or not 'email' in data or not 'full_name' in data:
+    #     return jsonify({
+    #         'error' : 'Bad Request',
+    #         'message' : 'Username, Full name or Email is not given'
+    #     }), 400
+    # if len(data['user_name']) < 4 or len(data['email']) < 6:
+    #     return jsonify({
+    #         'error' : 'Bad Request',
+    #         'message' : 'Username and Email must contain a minimum of 4 and 6 letters respectively'
+    #     }), 400
+    hash = get_hash(data['password'])
+    u = Userz(
+            user_name= data['username'],
+            full_name= data['name'],
+            email= data['email'],
+            is_admin= data.get('is admin', False),
+            password= hash
+        )
+    db.session.add(u)
+    db.session.commit()
+    return  return_user(u), 201
+
 @app.route('/books/',methods=['POST'])
 def create_book():
     data = request.get_json()
@@ -219,6 +253,22 @@ def update_user(id):
         user.is_admin=data['is admin']
     db.session.commit()
     return jsonify({'Success': 'User data has been updated'}, return_user(user))
+
+@app.route('/users_update/<int:id>/',methods=['PUT'])
+def update_userjs(id):
+    data = request.get_json()
+    user = get_userData(id)
+    if 'updatename' in data:
+        user.full_name=data['updatename']
+    if 'updateusername' in data:
+        user.user_name=data['updateusername']
+    if 'email' in data:
+        user.email=data['email']
+    if 'updatepassword' in data:
+        hash = get_hash(data['updatepassword'])
+        user.password = hash
+    db.session.commit()
+    return jsonify(return_user(user))
 
 @app.route('/books/<id>/',methods=['PUT'])
 def update_book(id):
@@ -262,7 +312,7 @@ def get_rents():
     login = authz()
     if login:
         return jsonify([return_rent(rent) for rent in Administration.query.all()])
-    else: return {"Error":"Wrong Username or Password"}
+    if login is False: return {"Error":"Wrong Username or Password"}
 
 @app.route('/rents/<id>/', methods=['GET'])
 def get_rent(id):
@@ -271,7 +321,7 @@ def get_rent(id):
         rent = get_rentData(id)
         user = get_userData(id)
         return jsonify([return_rent(rent)])
-    else: return {"Error":"Wrong Username or Password"}
+    if login is False: return {"Error":"Wrong Username or Password"}
 
 @app.route('/rents/users/<id>', methods=['GET'])
 def get_rent_users(id):
@@ -323,7 +373,7 @@ def create_rent():
             db.session.add(rent)
             db.session.commit()    
             return jsonify([{"Success": "Rent data has been saved"}, return_rent(rent)]), 201 
-    else: return {"Error":"Wrong Username or Password"}
+    if not login: return {"Error":"Wrong Username or Password"}
 
 @app.route('/rents/<id>/',methods={'PUT'}) # PENGEMBALIAN
 def update_rent(id):
@@ -357,3 +407,13 @@ def delete_rent(id):
             'success': 'Rent data deleted successfully'
         }  
     else: return {"Error":"Wrong Username or Password"}
+
+@app.after_request
+def after_request(response):
+  response.headers.add('Access-Control-Allow-Origin', '*')
+  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+  response.headers.add('Access-Control-Allow-Methods', 'POST,GET,PUT,DELETE,OPTION')
+  return response
+
+if __name__ == '__main__':
+    app.run(debug=True)
