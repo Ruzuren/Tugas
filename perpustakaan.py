@@ -254,6 +254,7 @@ def update_user(id):
     db.session.commit()
     return jsonify({'Success': 'User data has been updated'}, return_user(user))
 
+# //////////////////////////////
 @app.route('/users_update/<int:id>/',methods=['PUT'])
 def update_userjs(id):
     data = request.get_json()

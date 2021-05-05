@@ -7,18 +7,17 @@ const updateFormButton = document.querySelector("button#updateitem")
 function createHTMLRow(data) {  
     const row = document.createElement('tr');
 
-    const button = document.createElement('button');
+    // view button
+    const viewbutton = document.createElement('button');
 
-    const insideButton = document.createTextNode("Update");
-    button.appendChild(insideButton)
-    button.onclick = () => {
-        
-        updateName.value = data.name
-        updateUsername.value = data.username
-        updateEmail.value = data.email
-        updatePassword.value = data.password
-        console.log(data.id)}
-
+    const insideButton = document.createTextNode("View");
+    viewbutton.appendChild(insideButton)
+    viewbutton.onclick = () => {
+        // pindah ke view.html dengan querystring data.id
+        window.location.href = "view.html?id=" + data.id   
+    }
+    
+    // delete button ==============================
     const deleteButton = document.createElement('button')
     deleteButton.innerText = "Delete"
     deleteButton.onclick = function(){
@@ -28,13 +27,15 @@ function createHTMLRow(data) {
     .then(res => res.json())
     .then(text => console.log(text))
     }
+    // ==============================================
 
     for(prop in data) {
         const cell = document.createElement('td')
         cell.innerHTML = data[prop];
         row.appendChild(cell);
     }
-        row.appendChild(button)
+        // add button to table
+        row.appendChild(viewbutton)
         row.appendChild(deleteButton)
         return row;
 }
