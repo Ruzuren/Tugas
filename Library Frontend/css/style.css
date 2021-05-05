@@ -1,0 +1,13 @@
+table, td, th {
+    border: 1px solid black;
+}
+  
+#table1 {
+    border-collapse: separate;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

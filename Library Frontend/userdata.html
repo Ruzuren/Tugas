@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details</title>
+    <style>
+        body {background-color: rgb(91, 255, 192);}
+        form {
+            display: flex;
+            align-items: left;
+            justify-content: left;
+        }
+        table, td, th {
+            border: 1px solid black;
+        }
+  
+        #table1 {
+            border-collapse: separate;
+            display: flex;
+            align-items: left;
+            justify-content: left;
+        }
+        fieldset, a {
+            border-radius: 20px;
+        }
+        input {
+            border-radius: 4px;
+        }
+
+        .button {
+            background-color: #493bc0;
+            border: none;
+            color: white;
+            padding: 5px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1 title = "Once you're in, you'll never go back"> Bikini Bottom Library </h1>
+    <table id="userTable">
+        <thead>
+            <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Username</th>
+            <th scope="col">Password</th>
+            <th scope="col">Email</th>
+            </tr>
+        </thead>
+        <!-- barang dari user.js masuk ke tbody dibawah ini -->
+        <tbody></tbody> 
+    </table>
+    <br>
+    <form id="updateForm">
+        <fieldset>
+            <legend>Update User</legend> 
+            <br>
+            <div>
+                <label>Name</label>
+                <input type="text" name="updatename" title="Fill in your full name" style="float: right;"/>
+            </div>
+            <br>
+            <div>
+                <label>Username</label>
+                <input type="text" name="updateusername" title="Fill in your username" style="float: right;"/>
+            </div>
+            <br>
+            <div>
+                <label>Email</label>
+                <input type="email" name="updateemail" title="Fill in your email address" style="float: right;"/>
+            </div>
+            <br>
+            <div>
+                <label>Password</label>
+                <input type="text" name="updatepassword" title="Fill in your password" style="float: right;"/>
+            </div>
+            <br>
+            <div>
+                <input type="submit" value="Update" title="Click this to update" style="float: right; cursor: pointer;">
+            </div>
+        </fieldset>
+        <br>
+    </form>
+    <br>
+    <a href="user.html" title="Back to Dashboard" class="button">Go back </a>
+    
+    <script src="js/util.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/user.js"></script>  
+    
+</body>
+</html>

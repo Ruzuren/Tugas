@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <style>
+        
+        body {background-color: rgb(91, 255, 192);}
+        img.welcome {
+            display: block;
+            margin: auto;  
+            width: 50%;
+        }
+    
+        form, h1 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        input {
+            border-radius: 4px;
+        }
+
+        fieldset {
+            border-radius: 20px;
+        }
+      </style>
+</head>
+<body>
+    <img class="welcome" src="https://nordicdairycongress.com/sites/default/files/billeder/nyheder/colourbox15033372.jpg" /
+    title="Image is stolen from somewhere">
+    
+    <h1 title = "Once you're in, you'll never go back"> Bikini Bottom Library </h1>
+
+    <form action="/action_page.php">
+        <fieldset>
+        <legend>User Login:</legend>
+        <label for="fname">Username:</label><br>
+        <input type="text" id="fname" name="fname" title="Fill in your Username"><br>
+        <label for="lname">Password:</label><br>
+        <input type="text" id="lname" name="lname" title="Fill in your Password">
+        <br><br>
+        <input type="submit" value="Login" href="user.html" title="Click this to login" style="float: right; cursor: pointer;" >
+        </fieldset>
+    </form> 
+    
+    <script src="js/app.js"></script> 
+    
+</body>
+</html>
