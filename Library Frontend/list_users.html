@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Users</title>
+    <style>
+        body {background-color: rgb(219, 219, 219);}
+        table, td, th {
+            border: 1px solid black;
+        }
+  
+        #table1 {
+            border-collapse: separate;
+            display: flex;
+            align-items: left;
+            justify-content: left;
+        }
+
+        .pagination a {
+            color: black;
+            background-color: #8fe2f1;
+            border: black;
+            border-width: 2px ;
+            border-radius: 100px;
+            float: left;
+            padding: 5px 10px;
+            margin-right: 4px;
+            text-decoration: none;
+            transition: background-color .3s;
+        }
+        
+        .button {
+            background-color: #493bc0;
+            border: none;
+            border-radius: 20px;
+            color: white;
+            padding: 5px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        .wrapper {
+            text-align: center;
+        }
+        thead, tfoot{
+            background-color: #e5ff50;
+        }
+        tbody {
+            background-color: hsl(192, 100%, 90%);
+        }
+    </style>
+</head>
+<body>
+    <h1 title = "Once you're in, you'll never go back"> Bikini Bottom Library </h1>
+
+    <form > 
+        <input class="s_name" type="text" name="searchname" placeholder="Enter Name"/>
+        <button class="search_bar">Search</button> 
+        
+    </form><br>
+
+    <div id="table_box_native"></div>
+    <div id="index_native" class="box"></div>
+    
+    <div class="wrapper">
+    <table id="userTable">
+        <thead>
+            <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Username</th>
+            <th scope="col">Password</th>
+            <th scope="col">Email</th>
+            <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <!-- barang dari user.js masuk ke tbody dibawah ini -->
+        <tbody></tbody>
+        <tfoot>
+            <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Username</th>
+            <th scope="col">Password</th>
+            <th scope="col">Email</th>
+            <th scope="col">Action</th>
+            </tr>
+        </tfoot> 
+    </table><br>
+
+    <div class="pagination" style="float: center;">
+        <a class="prev-Button" href="#">&laquo;</a>
+        <a class="one" href="#">1</a>
+        <a class="two" href="#">2</a>
+        <a class="three" href="#">3</a>
+        <!-- <a class="four" href="#">4</a>
+        <a class="five" href="#">5</a> -->
+        <a class="next-Button" href="#">&raquo;</a>
+    </div>
+    
+    <button class="sort-name" style="float: center;">Sort By Name</button>
+    <button class="sort-id" style="float: center;">Sort By ID</button>    
+    </div>
+
+    <br><br>
+    <a href="dashboard.html" title="Go Back" class="button" onclick="onGoBack">Go Back </a>
+
+    <script src="js/api.js"></script>
+    <script src="js/tabledata.js"></script>
+    <script src="js/user.js"></script>  
+</body>
+</html>

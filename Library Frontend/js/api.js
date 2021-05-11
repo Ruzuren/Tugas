@@ -1,8 +1,8 @@
-function getUsers() {
-    return fetch('http://localhost:5000/users/')
-      .then(response => response.json())
-      .then(json => json);
-}
+// function getUsers() {
+//     return fetch('http://localhost:5000/users/')
+//       .then(response => response.json())
+//       .then(json => json);
+// }
   
 const form = document.querySelector('#userForm');
 form.addEventListener('submit', (e) => {
@@ -42,3 +42,26 @@ updateForm.addEventListener('submit', (e) => {
     .then(res => res.json())
     .then(text => console.log(text))
 })
+
+function getUsers(offset, limit) {
+    return fetch('http://localhost:5000/users/pagination?offset=' + offset + "&limit=" + limit)
+      .then(response => response.json())
+      .then(json => json);
+  }
+
+function searchUser(name){
+    return fetch('http://localhost:5000/search_user/' + name)
+      .then(response => response.json())
+      .then(json => json);
+  }
+  
+  function sortUserName(offset=0, limit=5){
+    return fetch(`http://localhost:5000/sort_user/name?offset=${offset}&limit=${limit}`)
+      .then(response => response.json())
+      .then(json => json);
+  }
+  function sortUserId(offset=0, limit=5){
+    return fetch(`http://localhost:5000/sort_user/id?offset=${offset}&limit=${limit}`)
+      .then(response => response.json())
+      .then(json => json);
+  }

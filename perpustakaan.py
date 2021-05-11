@@ -1,6 +1,7 @@
 from flask_cors import CORS, cross_origin
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import create_engine
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from sqlalchemy import text
@@ -12,6 +13,8 @@ app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:123456@localhost:54
 app.config['SECRET_KEY']='secret'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
+connect_str = 'postgresql://postgres:123456@localhost:5432/perpustakaan'
+engine = create_engine(connect_str, echo=False)
 
 cors_config = {
     # "origins": ["http://127.0.0.1:5500"],
@@ -253,6 +256,88 @@ def update_user(id):
         user.is_admin=data['is admin']
     db.session.commit()
     return jsonify({'Success': 'User data has been updated'}, return_user(user))
+
+
+@app.route('/users/pagination')
+def get_users_by_offset_limit():
+    offset = request.args.get("offset")
+    limit = request.args.get("limit")
+    
+    all = []
+    with engine.connect() as connection:
+        qry = text("SELECT * FROM userz OFFSET {}  LIMIT {}".format(offset, limit))
+        result = connection.execute(qry)
+        for i in result:
+            all.append({
+                'user_id': i[0],
+                'username': i[2],
+                'full_name' : i[1],
+                'password' : i[3],
+                'email' : i[4],
+            })
+    return {'data': all, 'total': len(list(all))}
+
+@app.route('/search_user/<name>')
+def search_user(name):
+    all = []
+    with engine.connect() as connection:
+        qry = text("SELECT * FROM userz WHERE full_name ILIKE'%{}%' ORDER BY full_name".format(name))
+        result = connection.execute(qry)
+        for i in result:
+            all.append({
+                'user_id': i[0],
+                'username': i[2],
+                'full_name' : i[1],
+                'password' : i[3],
+                'email' : i[4],
+            })
+    return jsonify(all)
+
+@app.route('/sort_user/name')
+def sort_user_name():
+    offset = request.args.get("offset")
+    limit = request.args.get("limit")
+    
+    all = []
+    with engine.connect() as connection:
+        qry = text("SELECT * FROM userz ORDER BY full_name OFFSET {} LIMIT {}".format(offset, limit))
+        result = connection.execute(qry)
+        for i in result:
+            all.append({
+                'user_id': i[0],
+                'username': i[2],
+                'full_name' : i[1],
+                'password' : i[3],
+                'email' : i[4],
+            })
+    return jsonify(all)
+
+@app.route('/sort_user/id')
+def sort_user_id():
+    offset = request.args.get("offset")
+    limit = request.args.get("limit")
+    
+    all = []
+    with engine.connect() as connection:
+        qry = text("SELECT * FROM userz ORDER BY user_id OFFSET {} LIMIT {}".format(offset, limit))
+        result = connection.execute(qry)
+        for i in result:
+            all.append({
+                'user_id': i[0],
+                'username': i[2],
+                'full_name' : i[1],
+                'password' : i[3],
+                'email' : i[4],
+            })
+    return jsonify(all)
+
+@app.route('/user/number/', methods = ["GET"])
+def get_user_number():
+    return jsonify({
+    'count' : Userz.query.count()
+    }), 201
+
+
 
 # //////////////////////////////
 @app.route('/users_update/<int:id>/',methods=['PUT'])

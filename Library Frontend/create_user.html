@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create new User</title>
+    <style>
+        body {background-color: rgb(219, 219, 219);}
+        form {
+            display: flex;
+            align-items: left;
+            justify-content: left;
+        }
+        fieldset, a {
+            border-radius: 20px;
+        }
+        input {
+            border-radius: 4px;
+        }
+        .button {
+            background-color: #493bc0;
+            border: none;
+            color: white;
+            padding: 5px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1 title = "Once you're in, you'll never go back"> Bikini Bottom Library </h1>
+
+    <form id="userForm">
+        <fieldset>
+            <legend>Create New User</legend> 
+            <br>
+            <div>
+                <label>Name</label><br>
+                <input type="text" name="name" title="Fill in your full name" placeholder="full name"/>
+            </div>
+            <br>
+            <div>
+                <label>Username</label><br>
+                <input type="text" name="username" title="Fill in your username" placeholder="username"/>
+            </div>
+            <br>
+            <div>
+                <label>Email</label><br>
+                <input type="email" name="email" title="Fill in your email address" placeholder="example@example.com"/>
+            </div>
+            <br>
+            <div>
+                <label>Password</label><br>
+                <input type="text" name="password" title="Fill in your password" placeholder="your password"/>
+            </div>
+            <br>
+            <div>
+                <input type="submit" value="Create New" title="Click here to register" style="float: right; cursor: pointer;">
+            </div>
+        </fieldset>
+    </form>
+    <br>
+
+    <a href="dashboard.html" title="Go Back" class="button" onclick="onGoBack">Go Back </a>
+
+    <script src="js/tabledata.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/user.js"></script>
+    
+</body>
+</html>
