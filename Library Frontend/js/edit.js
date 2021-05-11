@@ -49,6 +49,6 @@ fetch('http://localhost:5000/users_update/' + id + '/', {
   .then(res => res.json())
   .then(jsonRes => {
     console.log(jsonRes)
-    window.location.href = "user.html"
+    window.location.href = "list_users.html"
   })
 })

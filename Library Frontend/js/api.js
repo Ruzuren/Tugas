@@ -19,7 +19,11 @@ form.addEventListener('submit', (e) => {
         body: json
     })
     .then(res => res.json())
-    .then(text => console.log(text))
+    .then(text => {
+        console.log(text)
+        window.location.href = "list_users.html"
+    })
+    
     // window.location.reload(true)
 })
   
@@ -40,7 +44,10 @@ updateForm.addEventListener('submit', (e) => {
         body: json
     })
     .then(res => res.json())
-    .then(text => console.log(text))
+    .then(text => {
+        console.log(text)
+        window.location.href = "list_users.html"
+    })
 })
 
 function getUsers(offset, limit) {

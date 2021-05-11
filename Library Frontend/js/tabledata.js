@@ -26,7 +26,10 @@ function createHTMLRow(data) {
         method: 'DELETE'
     })
     .then(res => res.json())
-    .then(text => console.log(text))
+    .then(text => {
+        console.log(text)
+    window.location.href = "list_users.html"
+    })
     }
     // ==============================================
 
