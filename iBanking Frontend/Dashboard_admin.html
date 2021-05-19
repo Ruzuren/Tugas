@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="css/dashboard_admin.css">
+</head>
+<body>
+
+    <h1 title = "Try">iBanking</h1><br>
+    <form id="viewForm">
+        <fieldset><br>
+        <legend>Search</legend>
+            <button>All Users</button>
+            <button>All Accounts</button>
+            <button>All Transactions</button><br><br>
+        </fieldset>
+    </form>
+    
+    <form id="filteredForm">
+        <fieldset><br>
+        <legend>Filtered Search</legend>
+            <input name="SearchField" type="text" placeholder="Search by..." title="Fill in your Username" ><br>
+            <button style="float: left; cursor: pointer;">By Username</button>
+            <button>By Account Number</button>
+            <button id="logoutbtn" style="float: right; cursor: pointer;">By User ID</button>
+        </fieldset>
+    </form>
+
+    <br><br><button>logout</button>
+    <script>
+        const log = document.querySelector("button")
+        log.addEventListener("click", (e)=>{
+            e.preventDefault()
+            delete localStorage.admin;
+            window.location.href = "index.html"
+        })
+    </script>
+</body>
+</html>

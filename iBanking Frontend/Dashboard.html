@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+    <h1 title = "Try">iBanking</h1><br>
+    <form>
+    <fieldset class="bubble">
+    <div class="divv">
+        <div class="diva">
+            <img class="transfer" src="https://cdn.iconscout.com/icon/premium/png-256-thumb/transfer-89-537154.png"><br>
+            <button class="tfbtn">Transfer</button>
+        </div>
+        <div class="divb">
+            <img class="buy" src="https://cdn.iconscout.com/icon/premium/png-512-thumb/buy-item-1-581679.png"><br>
+            <button class="bbtn">Buy</button>
+        </div>
+    </div>
+    </fieldset>
+    </form>
+    
+
+    <form id="userForm">
+        <fieldset class="pepe"><br>
+        <legend>Rekening Giro & Tabungan</legend>
+        <div class="div1">
+            <img class="card" src="https://www.mandirikartukredit.com/uploads/media/kartu/corporate-platinum-front.png" 
+                title="Image is stolen from somewhere">
+            <div class="div2">
+                <input name="Username" type="text" placeholder="Username" title="Fill in your Username" disabled><br>
+                <input class="MID" name="Full Name" type="text" placeholder="Full Name" title="Fill in your Full Name" disabled><br>
+                <input name="Account Number" type="text" placeholder="Account Number" title="Fill in your Password" disabled><br>
+            </div>
+        </div><br>
+            <button class="historybtn" style="float: left; cursor: pointer;">History</button>
+            <button id="logoutbtn" style="float: right; cursor: pointer;">logout</button>
+        </fieldset>
+    </form>
+    <br><br>
+    <div class="historyview">
+        <table class="table1" id="historytable">
+            <thead>
+                <!-- <tr>
+                <th>Transaction ID</th>
+                <th>Transaction Type</th>
+                <th>Transaction Date</th>
+                <th>Transaction Amount</th>
+                <th>Transaction Sender</th>
+                <th>Transaction Receiver</th>
+            </tr> -->
+            </thead>
+            <tbody></tbody>
+            <tfoot><tr></tr></tfoot>
+
+        </table>
+
+    </div>
+
+
+    <script>
+        const log = document.querySelector("#logoutbtn")
+        log.addEventListener("click", (e)=>{
+            e.preventDefault()
+            delete localStorage.user;
+            window.location.href = "index.html"
+        })
+    </script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

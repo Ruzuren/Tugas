@@ -1,0 +1,7 @@
+body {background-color: rgb(219, 219, 219);}
+
+form, h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

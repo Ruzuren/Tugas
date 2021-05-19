@@ -1,0 +1,23 @@
+body {background-color: rgb(219, 219, 219);}
+
+img.welcome {
+    display: block;
+    margin: auto;  
+    width: 20%;
+    /* scale: 20%; */
+    border-radius: 20px;
+}
+
+form, h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+input {
+    border-radius: 4px;
+}
+
+fieldset {
+    border-radius: 20px;
+}
