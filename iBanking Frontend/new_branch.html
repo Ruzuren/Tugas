@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Branch</title>
+</head>
+<body>
+    <form id="branchForm">
+        <fieldset>
+            <legend>Create New Branch</legend> 
+            <br>
+            <div>
+                <label>Branch Number</label><br>
+                <input type="text" name="branch_number" title="Fill in the branch number" placeholder="xxxx"/>
+            </div>
+            <br>
+            <div>
+                <label>Branch Name</label><br>
+                <input type="text" name="branch_name" title="Fill in the branch name" placeholder="branchname"/>
+            </div>
+            <br>
+            <div>
+                <label>Branch Address</label><br>
+                <input type="text" name="branch_address" title="Fill in the branch address" placeholder="branch address"/>
+            </div>
+            <br>
+            <div>
+                <button id="cancelbtn" title="Cancel and go back to Dashboard" style="float: left; cursor: pointer;">Cancel</button>
+            </div>
+            <div>
+                <input id="confirm" type="submit" value="Create New" title="Click here to register" style="float: right; cursor: pointer;">
+            </div>
+        </fieldset>
+    </form>
+    <br>
+
+
+    <script>
+        const log = document.querySelector("#cancelbtn")
+        log.addEventListener("click", (e)=>{
+            e.preventDefault()
+            window.location.href = "Dashboard_admin.html"
+        })
+    </script>
+    <script src="js/newbranch.js"></script>
+</body>
+</html>

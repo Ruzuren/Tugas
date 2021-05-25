@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer</title>
+</head>
+<body>
+    <form id="transferForm">
+        <fieldset>
+            <legend>Transfer</legend> 
+            <br>
+            <div>
+                <label>Date</label><br>
+                <input type="text" name="date" title="Date of Transfer" placeholder="d/m/y"/>
+            </div>
+            <br>
+            <div>
+                <label>Target Account Number</label><br>
+                <input type="text" name="userid" title="Fill in the target account number" placeholder="target account number"/>
+            </div>
+            <br>
+            <div>
+                <label>How much</label><br>
+                <input type="text" name="cash" title="How much to transfer" placeholder="transaction amount"/>
+            </div>
+            <br>
+            <div>
+                <label>Note</label><br>
+                <input type="text" name="note" title="Sender's Note"/>
+            </div>
+            <br>
+            <div>
+                <input type="submit" value="Cancel" title="Cancel and go back to Dashboard" style="float: left; cursor: pointer;">
+            </div>
+            <div>
+                <input type="submit" value="Confirm" title="To confirmation screen" style="float: right; cursor: pointer;">
+            </div>
+        </fieldset>
+    </form>
+    <br>
+</body>
+</html>

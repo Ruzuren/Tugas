@@ -114,7 +114,7 @@ def get_userData(id):
     return Userz.query.filter_by(user_id=id).first_or_404()
 
 def return_user(u):
-    return {'User id' : u.user_id,'Username':u.user_name,'Full name':u.full_name, 'Email' : u.email, 'is admin': u.is_admin}
+    return {'user_id' : u.user_id,'user_name':u.user_name,'full_name':u.full_name, 'email' : u.email, "password" : u.password, 'is_admin': u.is_admin}
 
 #################################################################################################
 # Branch
@@ -123,7 +123,7 @@ def get_branchData(id):
     return Branch.query.filter_by(branch_number = id).first_or_404()
 
 def return_branch(b):
-    return {'Branch Number': b.branch_number, 'Branch Name': b.branch_name, 'Branch Address': b.branch_address}
+    return {'branch_number': b.branch_number, 'branch_name': b.branch_name, 'branch_address': b.branch_address}
 
 #################################################################################################
 # Account
@@ -132,8 +132,8 @@ def get_accountData(id):
     return Account.query.filter_by(account_number=id).first_or_404()
 
 def return_account(a):
-    return {'Account Number': a.account_number, "Full Name":a.x.full_name, "Branch ID": a.y.branch_number, 
-    "Account Balance":a.account_balance, "Branch Name":a.y.branch_name, "Last Transaction": a.last_transaction}
+    return {'account_number': a.account_number,"account_type":a.account_type, "user_id":a.user_id, "full_name":a.x.full_name, "branch_id": a.y.branch_number, 
+    "account_balance":a.account_balance, "branch_name":a.y.branch_name, "last_transaction": a.last_transaction}
 
 #################################################################################################
 # Transaction
@@ -143,8 +143,9 @@ def get_transactionData(id):
 
 def return_transaction(t):
     acc = Account.query.filter_by(account_number=t.account_id).first()
-    return {'Transaction ID': t.transaction_id, "Transaction Date": t.transaction_date, "Transaction Type": t.transaction_type,
-    "Related account":t.account_id, "Full Name": acc.x.full_name}
+    return {'transaction_id': t.transaction_id, "transaction_date": t.transaction_date, "transaction_type": t.transaction_type,
+    "transaction_receiver":t.account_id, "full_name": acc.x.full_name, "transaction_amount": t.transaction_ammount, 
+    "transaction_sender":t.transaction_sender}
 
 # def return_save(t):
 #     return {'Transaction ID': t.transaction_id, 'Transaction Date': t.transaction_date, 'Transaction Type': t.transaction_type,
@@ -1549,12 +1550,6 @@ def loginUser():
                 }, 201
 
 
-@app.after_request
-def after_request(response):
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,token')
-    response.headers.add('Access-Control-Allow-Methods', 'POST,GET,PUT,DELETE,OPTION')
-    return response
 
 def jwt_dec(signature, token):
     try:
@@ -1603,3 +1598,90 @@ def get_history_fe():
             "transaction_receiver" : trans.account_id
         }for trans in transaction
     ])
+
+@app.route('/user/balance/', methods = ["GET"])
+def get_balance_fe():
+    token = request.headers.get("token")
+    jwt = jwt_dec("secret", token)
+
+    user = Userz.query.filter_by(user_id = jwt["id"]).first()
+    acc = Account.query.filter_by(user_id = user.user_id).first()
+    return {"account_balance":acc.account_balance}
+
+# create new user
+@app.route('/create/user/', methods=['POST'])
+def create_user_fe():
+    data = request.get_json()
+    hash = get_hash(data['password'])
+    u = Userz(
+            user_id = str(uuid.uuid4()),
+            user_name= data['user_name'],
+            full_name= data['full_name'],
+            email= data['email'],
+            password= hash,
+            is_admin= data.get('is_admin', False)
+        )
+    db.session.add(u)
+    db.session.commit()
+    return  return_user(u), 201
+
+# create new branch (Admin)
+@app.route('/create/branch/', methods=['POST'])
+def create_branch_fe():
+    data = request.get_json()
+    b = Branch(
+            branch_name = data['branch_name'],
+            branch_number = data['branch_number'],
+            branch_address = data['branch_address']
+        )
+    db.session.add(b)
+    db.session.commit()
+    return  return_branch(b), 201
+
+# create account (Admin)
+@app.route('/create/account/', methods=['POST'])
+def create_account_fe():
+    data = request.get_json()
+                
+    a = Account(
+            account_number = data['account_number'],
+            account_type = data.get('account_type', "Regular"),
+            account_balance = data['deposit'],
+            last_transaction = data['date'],
+            user_id = data["user_id"],
+            branch_id = data["branch_id"]
+        )
+    # when opening a new account, this will be counted as deposit in Transaction table
+    t = Transaction(
+            transaction_type = "save",
+            transaction_date = data['date'],
+            transaction_ammount = data['deposit'],
+            account_id = data['account_number'],
+            branch_id = data['branch_id']
+    )
+    db.session.add(a)
+    db.session.add(t)
+    db.session.commit()
+    return  return_account(a), 201
+
+# list all users
+@app.route('/list/users/', methods = ["GET"])
+def get_users_fe():
+    return jsonify([return_user(user) for user in Userz.query.all()]), 201
+
+# list all accounts
+@app.route('/list/accounts/', methods = ["GET"])
+def get_accounts_fe():
+    return jsonify([return_account(accounts) for accounts in Account.query.all()])
+
+# List all transactions
+@app.route('/list/transactions/', methods = ["GET"])
+def get_transactions_fe():
+    return jsonify([return_transaction(transactions) for transactions in Transaction.query.all()])
+
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,token')
+    response.headers.add('Access-Control-Allow-Methods', 'POST,GET,PUT,DELETE,OPTION')
+    return response

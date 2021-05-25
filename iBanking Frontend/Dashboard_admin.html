@@ -12,31 +12,87 @@
     <h1 title = "Try">iBanking</h1><br>
     <form id="viewForm">
         <fieldset><br>
-        <legend>Search</legend>
-            <button>All Users</button>
-            <button>All Accounts</button>
-            <button>All Transactions</button><br><br>
+        <legend>List</legend>
+            <button class="userBtn">All Users</button>
+            <button class="accBtn">All Accounts</button>
+            <button class="transBtn">All Transactions</button><br><br>
         </fieldset>
-    </form>
+    </form><br>
     
+    <div class="allUsersView">
+        <table class="table1" id="allUsersTable">
+            <thead></thead>
+            <tbody></tbody>
+            <tfoot><tr></tr></tfoot>
+        </table>
+    </div><br>
+
+    <div class="allAccountsView">
+        <table class="table1" id="allAccountsTable">
+            <thead></thead>
+            <tbody></tbody>
+            <tfoot><tr></tr></tfoot>
+        </table>
+    </div><br>
+
+    <div class="allTransactionsView">
+        <table class="table1" id="allTransactionsTable">
+            <thead></thead>
+            <tbody></tbody>
+            <tfoot><tr></tr></tfoot>
+        </table>
+    </div><br>
+
     <form id="filteredForm">
         <fieldset><br>
         <legend>Filtered Search</legend>
             <input name="SearchField" type="text" placeholder="Search by..." title="Fill in your Username" ><br>
-            <button style="float: left; cursor: pointer;">By Username</button>
+            <br><button style="float: left; cursor: pointer;">By Username</button>
             <button>By Account Number</button>
-            <button id="logoutbtn" style="float: right; cursor: pointer;">By User ID</button>
+            <button style="float: right; cursor: pointer;">By User ID</button>
         </fieldset>
-    </form>
+    </form><br><br>
 
-    <br><br><button>logout</button>
+    <div></div><br>
+
+    <form id="createForm">
+        <fieldset><br>
+        <legend>Create New</legend>
+            <button id="newuser" style="float: left; cursor: pointer;">New User</button>
+            <button id="newbranch" style="cursor: pointer;">New Branch</button>
+            <button id="newacc" style="float: right; cursor: pointer;">New Account</button>
+        </fieldset>
+    </form><br><br>
+
+    <div></div><br>
+
+    <br><br><button id="logoutbtn">logout</button>
     <script>
-        const log = document.querySelector("button")
+        const log = document.querySelector("#logoutbtn")
         log.addEventListener("click", (e)=>{
             e.preventDefault()
             delete localStorage.admin;
             window.location.href = "index.html"
         })
+
+        const new1 = document.querySelector("#newuser")
+        new1.addEventListener("click", (e)=>{
+            e.preventDefault()
+            window.location.href = "new_user.html"
+        })
+
+        const new2 = document.querySelector("#newbranch")
+        new2.addEventListener("click", (e)=>{
+            e.preventDefault()
+            window.location.href = "new_branch.html"
+        })
+
+        const new3 = document.querySelector("#newacc")
+        new3.addEventListener("click", (e)=>{
+            e.preventDefault()
+            window.location.href = "new_account.html"
+        })
     </script>
+    <script src="js/dashboard_admin.js"></script>
 </body>
 </html>

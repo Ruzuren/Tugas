@@ -8,17 +8,17 @@ form, h1 {
 
 input {
     border-radius: 4px;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    /* margin-top: 1px;
+    margin-bottom: 1px; */
     background-color: white;
     width: 200px;
     height: 25px;
     
 }
-.MID {
+/* .MID {
     margin-top: 20px;
     margin-bottom: 20px;
-}
+} */
 
 fieldset {
     /* display: flex; */
@@ -110,4 +110,7 @@ legend {
 }
 table, td, th {
     border: 1px solid black;
+}
+label {
+    font-size: 12px;
 }
