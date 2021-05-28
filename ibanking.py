@@ -1679,6 +1679,136 @@ def get_accounts_fe():
 def get_transactions_fe():
     return jsonify([return_transaction(transactions) for transactions in Transaction.query.all()])
 
+# Transfer (User)
+@app.route('/user/transfer/', methods = ["POST"])
+def transfer_money_fe():
+    token = request.headers.get("token")
+    jwt = jwt_dec("secret", token)
+    data = request.get_json()
+
+    user = Userz.query.filter_by(user_id = jwt["id"]).first()
+    acc = Account.query.filter_by(user_id = user.user_id).first()
+    acc1 = Account.query.filter_by(account_number=data['targetaccnum']).first()
+    t = Transaction(
+        transaction_type = data.get('transaction_type', "transfer"), #transfer
+        transaction_date = data['date'],
+        # transaction_date = datetime.now,
+        transaction_ammount = data['amount'], #duit
+        account_id = data['targetaccnum'],
+        transaction_description = data['note'],
+        branch_id = acc.branch_id,
+        transaction_sender = acc.account_number,
+        transaction_sender_branch = acc1.branch_id
+        # transaction_sender_branch = data['transaction_sender_branch']
+        #transaction_sender = accountx.account_number,
+    )
+    db.session.add(t)
+
+    # update balance sender
+    # acc = Account.query.filter_by(account_number=data['transaction_sender']).first()
+    temp1 = acc.account_balance 
+    temp12 = data['amount']
+    temp123 = int(temp1) - int(temp12)
+    acc.account_balance = temp123
+    acc.last_transaction = data['date']
+
+    # update balance receiver
+    temp2 = acc1.account_balance 
+    temp21 = data['amount']
+    temp213 = int(temp2) + int(temp21)
+    acc1.account_balance = temp213
+
+    # commit
+    db.session.commit()
+
+    # data sender
+    branch = Branch.query.filter_by(branch_number=acc.branch_id)
+    # user = Userz.query.filter_by(user_id=acc.user_id)
+    # userx dan accountx diatas
+
+    # data receiver
+    user1 = Userz.query.filter_by(user_id=acc1.user_id)
+    branch1 = Branch.query.filter_by(branch_number=acc1.branch_id)
+
+    return jsonify([
+        {
+            "date": t.transaction_date,
+            "transaction_type": t.transaction_type,
+            "account_number": t.transaction_sender,
+            "amount": data['amount'],
+            "sender_name": user.full_name,
+            "targetaccnum": t.account_id,
+            "target_name": acc1.x.full_name,
+            "note" : t.transaction_description,
+            "transaction_sender_branch" : acc.branch_id,
+            "branch_id" : acc1.branch_id
+        }
+    ]), 201
+
+# Search Owner by account number
+@app.route('/search_user/<id>/', methods = ["GET"])
+def owner_search(id):
+    # data = request.get_json()
+    acc = Account.query.filter_by(account_number = id).first()
+    return {
+        "full_name" : acc.x.full_name
+        }
+
+###########################################
+
+#search by username
+@app.route('/search_user/<username>')
+def search_user_fe(username):
+    all = []
+    with engine.connect() as connection:
+        qry = text("SELECT * FROM userz WHERE user_name ILIKE'%{}%' ORDER BY user_name".format(username))
+        result = connection.execute(qry)
+        for i in result:
+            all.append({
+                'user_id': i[0],
+                'user_name': i[2],
+                'full_name' : i[1],
+                'password' : i[3],
+                'email' : i[4],
+            })
+    return jsonify(all)
+
+#search by account number
+@app.route('/search_user/<accnum>')
+def search_accnum_fe(accnum):
+    all = []
+    with engine.connect() as connection:
+        qry = text("SELECT * FROM account WHERE account_number ILIKE'%{}%' ORDER BY account_number".format(accnum))
+        result = connection.execute(qry)
+        for i in result:
+            all.append({
+                'account_number': i[0],
+                'account_type': i[2],
+                'account_balance' : i[1],
+                'last_transaction' : i[3],
+                'user_id' : i[4],
+                'branch_id' : i[5]
+            })
+    return jsonify(all)
+
+#search by userid
+@app.route('/search_user/<userid>')
+def search_userid_fe(userid):
+    all = []
+    with engine.connect() as connection:
+        qry = text("SELECT * FROM userz WHERE user_id ILIKE'%{}%' ORDER BY user_id".format(userid))
+        result = connection.execute(qry)
+        for i in result:
+            all.append({
+                'user_id': i[0],
+                'user_name': i[2],
+                'full_name' : i[1],
+                'password' : i[3],
+                'email' : i[4],
+            })
+    return jsonify(all)
+
+###########################################
 @app.after_request
 def after_request(response):
     response.headers.add('Access-Control-Allow-Origin', '*')

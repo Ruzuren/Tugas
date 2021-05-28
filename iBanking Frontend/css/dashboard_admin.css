@@ -5,3 +5,56 @@ form, h1 {
     align-items: center;
     justify-content: center;
 }
+
+/* form {
+    width: 30rem;
+} */
+fieldset {
+    width: 25rem;
+    border-radius: 10px;
+    /* flex-direction: column; */
+    background-color: rgb(110, 250, 250);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.abc {
+    display: flex;
+    flex-direction: column;
+}
+
+.accBtn {
+    align-self: center;
+    
+}
+
+#MID, .MID {
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+#table1 {
+    border-collapse: collapse;
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    border: 1px solid black;
+}
+table, td, th {
+    border: 1px solid black;
+}
+label {
+    font-size: 12px;
+}
+
+th {
+    background-color: greenyellow;
+}
+
+.allUsersView, .allAccountsView, .allTransactionsView {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

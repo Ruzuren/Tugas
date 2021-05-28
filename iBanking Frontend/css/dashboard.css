@@ -22,7 +22,7 @@ input {
 
 fieldset {
     /* display: flex; */
-    border-radius: 20px;
+    border-radius: 10px;
     flex-direction: column;
     background-color: rgb(110, 250, 250);
 }
