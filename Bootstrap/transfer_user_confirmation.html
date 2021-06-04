@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="mycss/reset.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <title>Transfer Confirmation</title>
+</head>
+
+<body>
+
+    <nav class="navbar sticky-top navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand ps-3" href="admin_dashboard.html">
+                <i class="bi bi-bank"></i>
+                iBanking
+            </a>
+            <form class="d-flex">
+                <button id="logoutBtn" style="color: white;" class="btn btn-outline-danger" type="submit">Logout</button>
+            </form>
+        </div>
+    </nav>
+
+
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <div style="height: 700px" class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light">
+                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
+                        id="menu">
+                        <li class="nav-item">
+                            <a href="user_dashboard.html" class="nav-link align-middle px-0">
+                                <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="transfer_user.html" class="nav-link align-middle px-0">
+                                <i class="fs-4 bi-box-arrow-right"></i> <span class="ms-1 d-none d-sm-inline">Transfer</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="history_user.html" class="nav-link align-middle px-0">
+                                <i class="fs-4 bi-book-half"></i> <span class="ms-1 d-none d-sm-inline">History</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <hr>
+
+                </div>
+            </div>
+
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0">
+                <form>
+                    <div style="width: 40rem; float: left; margin-left: 4rem;" class="container-fluid">
+                        <br><br>
+                        <div>
+                            <label for="inputDate">Transaction Date</label>
+                            <input name="date" type="text" class="form-control" id="inputDate" aria-describedby="emailHelp"
+                                placeholder="Datetime" disabled>
+                            <small id="emailHelp" class="form-text text-muted">Current Datetime</small>
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            <label for="inputTargetAccNum">Receiver Account Number</label>
+                            <input name="targetaccnum" type="text" class="form-control" id="inputTargetAccNum" aria-describedby="emailHelp"
+                            placeholder="Enter Account Number" disabled>
+                            <small id="emailHelp" class="form-text text-muted">Whos Account will be credited?</small>
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            <label for="inputTargetName">Receiver's Full Name</label>
+                            <input name="targetname" type="text" class="form-control" id="inputTargetName" aria-describedby="emailHelp"
+                            placeholder="Enter Account Number" disabled>
+                            <small id="emailHelp" class="form-text text-muted">The receiver's Full name</small>
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            <label for="inputAmount">Transaction Amount</label>
+                            <input name="amount" type="text" class="form-control" id="inputAmount" aria-describedby="emailHelp"
+                                placeholder="Enter Account Number" disabled>
+                            <small id="emailHelp" class="form-text text-muted">How much money will be
+                                transferred</small>
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            <label for="inputNote">Note</label>
+                            <input name="note" type="text" class="form-control" id="inputNote" aria-describedby="emailHelp"
+                                placeholder="Enter Note" disabled>
+                            <small id="emailHelp" class="form-text text-muted">Sender's Note</small>
+                        </div><br><br>
+                        <button id="cancelBtn" class="btn btn-danger">Cancel</button>
+                        <button id="confirmBtn" class="btn btn-success" style="float: right;" type="submit"
+                            class="btn btn-primary">Submit</button><br><br>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <footer class="footer bg-dark pt-5 ps-5">
+        <div class="container-fluid row align-items-center">
+            <div class="row">
+                <div class="col-4">
+                    <a class="navbar-brand text-white" href="#">
+                        Bikini Bottom bank
+                    </a><br><br>
+                    <p style="text-align: justify;" class="text-white text-justify">&nbsp &nbsp &nbsp Lorem ipsum dolor
+                        sit amet consectetur adipisicing elit. Quidem facere nihil eaque exercitationem delectus? Quod,
+                        incidunt maxime quo deserunt expedita sint cumque molestiae modi sapiente ipsam tempore vel
+                        iusto tempora.</p>
+                </div>
+                <div class="col-2"></div>
+                <div class="col-3 ">
+                    <a class="navbar-brand text-white" href="#">
+                        Links
+                    </a><br><br>
+                    <a class="text-white" href="">
+                        Terms and Conditions
+                    </a><br>
+                    <a class="text-white" href="">
+                        Privacy Policy
+                    </a><br>
+                    <a class="text-white" href="">
+                        Email Us
+                    </a>
+                </div>
+                <div class="col-3">
+                    <a class="navbar-brand text-white" href="#">
+                        Contact Us
+                    </a><br><br>
+                    <i class="bi bi-facebook text-white">&nbsp &nbsp Bikini Bottom Bank</i><br>
+                    <i class="bi bi-twitter text-white">&nbsp &nbsp @BBB_Official</i><br>
+                    <i class="bi bi-instagram text-white">&nbsp &nbsp @BBB_Official</i><br>
+                </div>
+            </div>
+
+            <a class="navbar-brand text-center text-white" href="#">
+                @ 2021 PT Bikini Bottom Bank (Persero) Tbk.
+            </a>
+
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="myjs/user_transfer_confirmation.js"></script>
+    <script>
+        const log = document.querySelector("#cancelBtn")
+        log.addEventListener("click", (e) => {
+            e.preventDefault()
+            sessionStorage.clear();
+            window.location.href = "user_dashboard.html"
+        })
+        const log1 = document.querySelector("#logoutBtn")
+        log1.addEventListener("click", (e)=>{
+            e.preventDefault()
+            delete localStorage.user;
+            sessionStorage.clear();
+            window.location.href = "index.html"
+        })
+    </script>
+</body>
+
+</html>

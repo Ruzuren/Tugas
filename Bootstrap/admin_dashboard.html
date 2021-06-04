@@ -15,12 +15,12 @@
 
     <nav class="navbar sticky-top navbar-dark bg-primary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand ps-3" href="admin_dashboard.html">
                 <i class="bi bi-bank"></i>
                 iBanking
             </a>
             <form class="d-flex">
-                <button class="btn btn-danger" type="submit">Logout</button>
+                <button id="logoutBtn" style="color: white;" class="btn btn-outline-danger" type="submit">Logout</button>
             </form>
         </div>
     </nav>
@@ -37,7 +37,7 @@
                     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
                         id="menu">
                         <li class="nav-item">
-                            <a href="#" class="nav-link align-middle px-0">
+                            <a href="#" class="nav-link align-middle px-0 active">
                                 <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
                             </a>
                         </li>
@@ -47,16 +47,16 @@
                             </a>
                             <ul class="collapse nav flex-column ms-1" id="submenu4" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a href="#allUsersTable" class="nav-link px-0"> <i class="bi bi-people ms-3"></i>
+                                    <a href="list_all_users.html" class="nav-link px-0"> <i class="bi bi-people ms-3"></i>
                                         <span class="d-none d-sm-inline ms-1">All Users</span></a>
                                 </li>
                                 <li>
-                                    <a href="#allAccountsTable" class="nav-link px-0"> <i
+                                    <a href="list_all_accounts.html" class="nav-link px-0"> <i
                                             class="bi bi-people-fill ms-3"></i> <span
                                             class="d-none d-sm-inline ms-1">All Accounts</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-0"> <i class="bi bi-cash-coin ms-3"></i> <span
+                                    <a href="list_all_transactions.html" class="nav-link px-0"> <i class="bi bi-cash-coin ms-3"></i> <span
                                             class="d-none d-sm-inline ms-1">All Transactions</span></a>
                                 </li>
                             </ul>
@@ -67,11 +67,11 @@
                                     Search</span> </a>
                             <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a href="#" class="nav-link px-0"> <i class="bi bi-people ms-3"></i> <span
+                                    <a href="searchby_username.html" class="nav-link px-0"> <i class="bi bi-people ms-3"></i> <span
                                             class="d-none d-sm-inline ms-1">By Username</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-0"> <i class="bi bi-people-fill ms-3"></i> <span
+                                    <a href="searchby_accnum.html" class="nav-link px-0"> <i class="bi bi-people-fill ms-3"></i> <span
                                             class="d-none d-sm-inline ms-1">By Account Number</span></a>
                                 </li>
                             </ul>
@@ -102,15 +102,16 @@
                                     Operations</span></a>
                             <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a href="#" class="nav-link px-0"> <i class="bi bi-bag-plus ms-3"></i> <span
-                                            class="d-none d-sm-inline ms-1">Deposit</span></a>
+                                    <a href="deposit.html" class="nav-link px-0"> <i class="bi bi-bag-plus ms-3"></i>
+                                        <span class="d-none d-sm-inline ms-1">Deposit</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-0"> <i class="bi bi-bag-dash ms-3"></i> <span
-                                            class="d-none d-sm-inline ms-1">Withdraw</span></a>
+                                    <a href="withdraw.html" class="nav-link px-0"> <i class="bi bi-bag-dash ms-3"></i>
+                                        <span class="d-none d-sm-inline ms-1">Withdraw</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-0"> <i class="bi bi-box-arrow-right ms-3"></i> <span
+                                    <a href="transfer_admin.html" class="nav-link px-0"> <i
+                                            class="bi bi-box-arrow-right ms-3"></i> <span
                                             class="d-none d-sm-inline ms-1">Transfer</span></a>
                                 </li>
                             </ul>
@@ -203,6 +204,16 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="js/bootstrap.js"></script>
+    <!-- <script src="myjs/admin_dashboard.js"></script> -->
+    <script>
+        const log1 = document.querySelector("#logoutBtn")
+        log1.addEventListener("click", (e)=>{
+            e.preventDefault()
+            delete localStorage.admin;
+            sessionStorage.clear();
+            window.location.href = "index.html"
+        })
+    </script>
 </body>
 
 </html>

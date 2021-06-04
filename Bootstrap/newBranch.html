@@ -15,12 +15,13 @@
 
     <nav class="navbar sticky-top navbar-dark bg-primary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="admin_dashboard.html">
+            <a class="navbar-brand ps-3" href="admin_dashboard.html">
                 <i class="bi bi-bank"></i>
                 iBanking
             </a>
             <form class="d-flex">
-                <button class="btn btn-danger" type="submit">Logout</button>
+                <button id="logoutBtn" style="color: white;" class="btn btn-outline-danger"
+                    type="submit">Logout</button>
             </form>
         </div>
     </nav>
@@ -47,17 +48,19 @@
                             </a>
                             <ul class="collapse nav flex-column ms-1" id="submenu4" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a href="#allUsersTable" class="nav-link px-0"> <i class="bi bi-people ms-3"></i>
+                                    <a href="list_all_users.html" class="nav-link px-0"> <i
+                                            class="bi bi-people ms-3"></i>
                                         <span class="d-none d-sm-inline ms-1">All Users</span></a>
                                 </li>
                                 <li>
-                                    <a href="#allAccountsTable" class="nav-link px-0"> <i
+                                    <a href="list_all_accounts.html" class="nav-link px-0"> <i
                                             class="bi bi-people-fill ms-3"></i> <span
                                             class="d-none d-sm-inline ms-1">All Accounts</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-0"> <i class="bi bi-cash-coin ms-3"></i> <span
-                                            class="d-none d-sm-inline ms-1">All Transactions</span></a>
+                                    <a href="list_all_transactions.html" class="nav-link px-0"> <i
+                                            class="bi bi-cash-coin ms-3"></i> <span class="d-none d-sm-inline ms-1">All
+                                            Transactions</span></a>
                                 </li>
                             </ul>
                         </li>
@@ -67,12 +70,14 @@
                                     Search</span> </a>
                             <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a href="#" class="nav-link px-0"> <i class="bi bi-people ms-3"></i> <span
-                                            class="d-none d-sm-inline ms-1">By Username</span></a>
+                                    <a href="searchby_username.html" class="nav-link px-0"> <i
+                                            class="bi bi-people ms-3"></i> <span class="d-none d-sm-inline ms-1">By
+                                            Username</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-0"> <i class="bi bi-people-fill ms-3"></i> <span
-                                            class="d-none d-sm-inline ms-1">By Account Number</span></a>
+                                    <a href="searchby_accnum.html" class="nav-link px-0"> <i
+                                            class="bi bi-people-fill ms-3"></i> <span class="d-none d-sm-inline ms-1">By
+                                            Account Number</span></a>
                                 </li>
                             </ul>
                         </li>
@@ -80,13 +85,13 @@
                             <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                                 <i class="bi bi-clipboard-plus"></i> <span class="ms-1 d-none d-sm-inline">Create
                                     New</span> </a>
-                            <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
+                            <ul class="collapse show nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
                                 <li class="w-100">
                                     <a href="newUser.html" class="nav-link px-0"> <i class="bi bi-people ms-3"></i>
                                         <span class="d-none d-sm-inline ms-1">New User</span></a>
                                 </li>
                                 <li>
-                                    <a href="newBranch.html" class="nav-link px-0"> <i class="bi bi-bank2 ms-3"></i>
+                                    <a href="newBranch.html" class="nav-link px-0 active"> <i class="bi bi-bank2 ms-3"></i>
                                         <span class="d-none d-sm-inline ms-1">New Branch</span></a>
                                 </li>
                                 <li>
@@ -102,15 +107,16 @@
                                     Operations</span></a>
                             <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a href="#" class="nav-link px-0"> <i class="bi bi-bag-plus ms-3"></i> <span
-                                            class="d-none d-sm-inline ms-1">Deposit</span></a>
+                                    <a href="deposit.html" class="nav-link px-0"> <i class="bi bi-bag-plus ms-3"></i>
+                                        <span class="d-none d-sm-inline ms-1">Deposit</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-0"> <i class="bi bi-bag-dash ms-3"></i> <span
-                                            class="d-none d-sm-inline ms-1">Withdraw</span></a>
+                                    <a href="withdraw.html" class="nav-link px-0"> <i class="bi bi-bag-dash ms-3"></i>
+                                        <span class="d-none d-sm-inline ms-1">Withdraw</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-0"> <i class="bi bi-box-arrow-right ms-3"></i> <span
+                                    <a href="transfer_admin.html" class="nav-link px-0"> <i
+                                            class="bi bi-box-arrow-right ms-3"></i> <span
                                             class="d-none d-sm-inline ms-1">Transfer</span></a>
                                 </li>
                             </ul>
@@ -121,24 +127,24 @@
                 </div>
             </div>
             <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0">
-                <form>
+                <form id="branchForm">
                     <div style="width: 40rem; float: left; margin-left: 4rem;" class="container-fluid">
                         <div><br><br>
                             <label for="inputBranchNumber">Branch Number</label>
-                            <input type="text" class="form-control" id="inputBranchNumber" aria-describedby="emailHelp"
+                            <input name="branch_number" type="text" class="form-control" id="inputBranchNumber" aria-describedby="emailHelp"
                                 placeholder="Enter Branch Number">
                             <small id="emailHelp" class="form-text text-muted">Please provide a unique Branch Number
                                 (XXXX)</small>
                         </div>
                         <div style="margin-top: 1rem;">
                             <label for="inputBranchName">Branch Name</label>
-                            <input type="text" class="form-control" id="inputBranchName" aria-describedby="emailHelp"
+                            <input name="branch_name" type="text" class="form-control" id="inputBranchName" aria-describedby="emailHelp"
                                 placeholder="Enter Branch Name">
                             <small id="emailHelp" class="form-text text-muted">Please provide Branch Name</small>
                         </div>
                         <div style="margin-top: 1rem;" class="form-group">
                             <label for="inputBranchName">Branch address</label>
-                            <input type="text" class="form-control" id="inputBranchName" aria-describedby="emailHelp"
+                            <input name="branch_address" type="text" class="form-control" id="inputBranchName" aria-describedby="emailHelp"
                                 placeholder="Enter Branch Address">
                             <small id="emailHelp" class="form-text text-muted">Please Provide Branch Address</small>
                         </div>
@@ -199,11 +205,19 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="js/bootstrap.js"></script>
+    <script src="myjs/newBranch.js"></script>
     <script>
         const log = document.querySelector("#cancelBtn")
         log.addEventListener("click", (e) => {
             e.preventDefault()
             window.location.href = "admin_dashboard.html"
+        })
+        const log1 = document.querySelector("#logoutBtn")
+        log1.addEventListener("click", (e)=>{
+            e.preventDefault()
+            delete localStorage.admin;
+            sessionStorage.clear();
+            window.location.href = "index.html"
         })
     </script>
 </body>

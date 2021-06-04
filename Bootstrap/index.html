@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="mycss/reset.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <title>Landing Page</title>
+</head>
+
+<body>
+
+    <nav class="navbar sticky-top navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand ps-3" href="#">
+                <i class="bi bi-bank"></i>
+                iBanking
+            </a>
+            <!-- <form class="d-flex">
+                <button style="color: white;" class="btn btn-outline-danger" type="submit">Logout</button>
+            </form> -->
+        </div>
+    </nav>
+
+
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+
+            <div id="carouselExampleIndicators" class="carousel slide col-10 ms-0 p-0" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                        class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="img/bank1.jpg" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="img/bank2.jpg" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="img/bank3.jpg" class="d-block w-100" alt="...">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+            <div class="col-2">
+                <form id="loginform">
+                    <fieldset><br>
+                        <div style="margin-top: 1rem;">
+                            <label for="inputUsername">Username</label>
+                            <input name="Username" type="text" class="form-control" id="inputUsername" aria-describedby="emailHelp"
+                                placeholder="Enter Username">
+                            <!-- <small id="emailHelp" class="form-text text-muted">Your personal username</small> -->
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            <label for="inputPassword">Password</label>
+                            <input name="Password" type="password" class="form-control" id="inputPassword" aria-describedby="emailHelp"
+                                placeholder="Enter Password">
+                            <!-- <small id="emailHelp" class="form-text text-muted">Your secret password</small> -->
+                        </div><br>
+                        <button id="loginBtn" class="btn btn-success" style="float: right;" type="submit"
+                            >Login</button>
+                    </fieldset>
+                </form>
+            </div>
+
+
+
+        </div>
+    </div>
+    <footer class="footer bg-dark pt-5 ps-5">
+        <div class="container-fluid row align-items-center">
+            <div class="row">
+                <div class="col-4">
+                    <a class="navbar-brand text-white" href="#">
+                        Bikini Bottom bank
+                    </a><br><br>
+                    <p style="text-align: justify;" class="text-white text-justify">&nbsp &nbsp &nbsp Lorem ipsum dolor
+                        sit amet consectetur adipisicing elit. Quidem facere nihil eaque exercitationem delectus? Quod,
+                        incidunt maxime quo deserunt expedita sint cumque molestiae modi sapiente ipsam tempore vel
+                        iusto tempora.</p>
+                </div>
+                <div class="col-2"></div>
+                <div class="col-3 ">
+                    <a class="navbar-brand text-white" href="#">
+                        Links
+                    </a><br><br>
+                    <a class="text-white" href="">
+                        Terms and Conditions
+                    </a><br>
+                    <a class="text-white" href="">
+                        Privacy Policy
+                    </a><br>
+                    <a class="text-white" href="">
+                        Email Us
+                    </a>
+                </div>
+                <div class="col-3">
+                    <a class="navbar-brand text-white" href="#">
+                        Contact Us
+                    </a><br><br>
+                    <i class="bi bi-facebook text-white">&nbsp &nbsp Bikini Bottom Bank</i><br>
+                    <i class="bi bi-twitter text-white">&nbsp &nbsp @BBB_Official</i><br>
+                    <i class="bi bi-instagram text-white">&nbsp &nbsp @BBB_Official</i><br>
+                </div>
+            </div>
+
+            <a class="navbar-brand text-center text-white" href="#">
+                @ 2021 PT Bikini Bottom Bank (Persero) Tbk.
+            </a>
+
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="myjs/login.js"></script>
+</body>
+
+</html>

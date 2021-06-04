@@ -15,12 +15,12 @@
 
     <nav class="navbar sticky-top navbar-dark bg-primary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="admin_dashboard.html">
+            <a class="navbar-brand ps-3" href="admin_dashboard.html">
                 <i class="bi bi-bank"></i>
                 iBanking
             </a>
             <form class="d-flex">
-                <button class="btn btn-danger" type="submit">Logout</button>
+                <button id="logoutBtn" style="color: white;" class="btn btn-outline-danger" type="submit">Logout</button>
             </form>
         </div>
     </nav>
@@ -47,16 +47,16 @@
                             </a>
                             <ul class="collapse nav flex-column ms-1" id="submenu4" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a href="#allUsersTable" class="nav-link px-0"> <i class="bi bi-people ms-3"></i>
+                                    <a href="list_all_users.html" class="nav-link px-0"> <i class="bi bi-people ms-3"></i>
                                         <span class="d-none d-sm-inline ms-1">All Users</span></a>
                                 </li>
                                 <li>
-                                    <a href="#allAccountsTable" class="nav-link px-0"> <i
+                                    <a href="list_all_accounts.html" class="nav-link px-0"> <i
                                             class="bi bi-people-fill ms-3"></i> <span
                                             class="d-none d-sm-inline ms-1">All Accounts</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-0"> <i class="bi bi-cash-coin ms-3"></i> <span
+                                    <a href="list_all_transactions.html" class="nav-link px-0"> <i class="bi bi-cash-coin ms-3"></i> <span
                                             class="d-none d-sm-inline ms-1">All Transactions</span></a>
                                 </li>
                             </ul>
@@ -67,11 +67,11 @@
                                     Search</span> </a>
                             <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a href="#" class="nav-link px-0"> <i class="bi bi-people ms-3"></i> <span
+                                    <a href="searchby_username.html" class="nav-link px-0"> <i class="bi bi-people ms-3"></i> <span
                                             class="d-none d-sm-inline ms-1">By Username</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-0"> <i class="bi bi-people-fill ms-3"></i> <span
+                                    <a href="searchby_accnum.html" class="nav-link px-0"> <i class="bi bi-people-fill ms-3"></i> <span
                                             class="d-none d-sm-inline ms-1">By Account Number</span></a>
                                 </li>
                             </ul>
@@ -80,7 +80,7 @@
                             <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                                 <i class="bi bi-clipboard-plus"></i> <span class="ms-1 d-none d-sm-inline">Create
                                     New</span> </a>
-                            <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
+                            <ul class="collapse show nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
                                 <li class="w-100">
                                     <a href="newUser.html" class="nav-link px-0"> <i class="bi bi-people ms-3"></i>
                                         <span class="d-none d-sm-inline ms-1">New User</span></a>
@@ -90,7 +90,7 @@
                                         <span class="d-none d-sm-inline ms-1">New Branch</span></a>
                                 </li>
                                 <li>
-                                    <a href="newAccount.html" class="nav-link px-0"> <i
+                                    <a href="newAccount.html" class="nav-link px-0 active"> <i
                                             class="bi bi-people-fill ms-3"></i> <span
                                             class="d-none d-sm-inline ms-1">New Account</span></a>
                                 </li>
@@ -102,15 +102,16 @@
                                     Operations</span></a>
                             <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a href="#" class="nav-link px-0"> <i class="bi bi-bag-plus ms-3"></i> <span
-                                            class="d-none d-sm-inline ms-1">Deposit</span></a>
+                                    <a href="deposit.html" class="nav-link px-0"> <i class="bi bi-bag-plus ms-3"></i>
+                                        <span class="d-none d-sm-inline ms-1">Deposit</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-0"> <i class="bi bi-bag-dash ms-3"></i> <span
-                                            class="d-none d-sm-inline ms-1">Withdraw</span></a>
+                                    <a href="withdraw.html" class="nav-link px-0"> <i class="bi bi-bag-dash ms-3"></i>
+                                        <span class="d-none d-sm-inline ms-1">Withdraw</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-0"> <i class="bi bi-box-arrow-right ms-3"></i> <span
+                                    <a href="transfer_admin.html" class="nav-link px-0"> <i
+                                            class="bi bi-box-arrow-right ms-3"></i> <span
                                             class="d-none d-sm-inline ms-1">Transfer</span></a>
                                 </li>
                             </ul>
@@ -122,36 +123,36 @@
             </div>
 
             <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0">
-                <form>
+                <form id="accountForm">
                     <div style="width: 40rem; float: left; margin-left: 4rem;" class="container-fluid">
                         <div><br><br>
                             <label for="inputUserID">User ID</label>
-                            <input type="text" class="form-control" id="inputUserID" aria-describedby="emailHelp"
+                            <input name="user_id" type="text" class="form-control" id="inputUserID" aria-describedby="emailHelp"
                                 placeholder="Enter User ID">
                             <small id="emailHelp" class="form-text text-muted">Please provide your User ID</small>
                         </div>
                         <div style="margin-top: 1rem;">
                             <label for="inputBranchID">Branch ID</label>
-                            <input type="text" class="form-control" id="inputBranchID" aria-describedby="emailHelp"
+                            <input name="branch_id" type="text" class="form-control" id="inputBranchID" aria-describedby="emailHelp"
                                 placeholder="Enter Branch ID">
-                            <small id="emailHelp" class="form-text text-muted">Please provide your Account Branch ID
+                            <small id="emailHelp" class="form-text text-muted">Please provide a 4 digits Branch ID
                                 (XXXX)</small>
                         </div>
                         <div style="margin-top: 1rem;" class="form-group">
                             <label for="inputAccountNumber">Account Number</label>
-                            <input type="email" class="form-control" id="inputAccountNumber"
+                            <input name="account_number" type="email" class="form-control" id="inputAccountNumber"
                                 aria-describedby="emailHelp" placeholder="Account Number">
                             <small id="emailHelp" class="form-text text-muted">Provide a 13 digits Account Number
                                 (132000xxxx)</small>
                         </div>
                         <div style="margin-top: 1rem;" class="form-group">
-                            <label for="inputDeposit">Password</label>
-                            <input type="password" class="form-control" id="inputDeposit" placeholder="150000">
+                            <label for="inputDeposit">First Deposit</label>
+                            <input name="deposit" type="password" class="form-control" id="inputDeposit" placeholder="150000">
                             <small id="emailHelp" class="form-text text-muted">Minimum first deposit is 150000</small>
                         </div>
                         <div style="margin-top: 1rem;" class="form-group">
                             <label for="inputDate">Account Creation Date</label>
-                            <input type="password" class="form-control" id="inputDate" placeholder="D / M / Y">
+                            <input name="date" type="password" class="form-control" id="inputDate" placeholder="D / M / Y">
                             <small id="emailHelp" class="form-text text-muted">Provide Account Creation Date</small>
                         </div><br><br>
                         <button id="cancelBtn" class="btn btn-secondary">Cancel</button>
@@ -211,11 +212,19 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="js/bootstrap.js"></script>
+    <script src="myjs/newAccount.js"></script>
     <script>
         const log = document.querySelector("#cancelBtn")
         log.addEventListener("click", (e) => {
             e.preventDefault()
             window.location.href = "admin_dashboard.html"
+        })
+        const log1 = document.querySelector("#logoutBtn")
+        log1.addEventListener("click", (e)=>{
+            e.preventDefault()
+            delete localStorage.admin;
+            sessionStorage.clear();
+            window.location.href = "index.html"
         })
     </script>
 </body>

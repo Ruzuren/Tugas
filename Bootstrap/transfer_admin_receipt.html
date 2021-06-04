@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="mycss/reset.css">
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-    <title>New User</title>
+    <title>Transfer Receipt</title>
 </head>
 
 <body>
@@ -29,7 +29,7 @@
 
     <div class="container-fluid">
         <div class="row flex-nowrap">
-            <div style="height: 600px" class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light">
+            <div style="height: 900px" class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light">
                 <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
                     <!-- <a href="admin_dashboard.html"
                         class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-black text-decoration-none">
@@ -85,9 +85,9 @@
                             <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                                 <i class="bi bi-clipboard-plus"></i> <span class="ms-1 d-none d-sm-inline">Create
                                     New</span> </a>
-                            <ul class="collapse show nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
+                            <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a href="newUser.html" class="nav-link px-0 active"> <i class="bi bi-people ms-3"></i>
+                                    <a href="newUser.html" class="nav-link px-0"> <i class="bi bi-people ms-3"></i>
                                         <span class="d-none d-sm-inline ms-1">New User</span></a>
                                 </li>
                                 <li>
@@ -128,37 +128,54 @@
             </div>
 
             <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0">
-                <form id="userForm">
+                <form style="background-color: gray;">
                     <div style="width: 40rem; float: left; margin-left: 4rem;" class="container-fluid">
                         <div><br><br>
-                            <label for="inputUsername">Username</label>
-                            <input name="user_name" type="text" class="form-control" id="inputUsername"
-                                aria-describedby="11" placeholder="Enter Username">
-                            <small id="11" class="form-text text-muted">Please provide a unique Username</small>
+                            <label for="inputDate">Transaction Date</label>
+                            <input name="date" type="text" class="form-control" id="inputDate" aria-describedby="emailHelp"
+                                placeholder="Datetime" disabled>
+                            <small id="emailHelp" class="form-text text-muted">Current Datetime</small>
                         </div>
                         <div style="margin-top: 1rem;">
-                            <label for="inputFullName">Full Name</label>
-                            <input name="full_name" type="text" class="form-control" id="inputFullName"
-                                aria-describedby="12" placeholder="Enter Full Name">
-                            <small id="12" class="form-text text-muted">Please provide your First Name, followed
-                                by your Last Name</small>
+                            <label for="inputAccNum">Sender's Account Number</label>
+                            <input name="senderaccnum" type="text" class="form-control" id="inputAccNum" aria-describedby="emailHelp"
+                            placeholder="Enter Account Number" disabled>
+                            <small id="emailHelp" class="form-text text-muted">Whos Account will be debited?</small>
                         </div>
-                        <div style="margin-top: 1rem;" class="form-group">
-                            <label for="exampleInputEmail1">Email address</label>
-                            <input name="email" type="email" class="form-control" id="exampleInputEmail1"
-                                aria-describedby="13" placeholder="Enter email">
-                            <small id="13" class="form-text text-muted">Your favorite email address</small>
+                        <div style="margin-top: 1rem;">
+                            <label for="inputSenderName">Sender Full Name</label>
+                            <input name="sendername" type="text" class="form-control" id="inputSenderName" aria-describedby="emailHelp"
+                            placeholder="Enter Account Number" disabled>
+                            <small id="emailHelp" class="form-text text-muted">The sender's Full name</small>
                         </div>
-                        <div style="margin-top: 1rem;" class="form-group">
-                            <label for="exampleInputPassword1">Password</label>
-                            <input name="password" type="password" class="form-control" id="exampleInputPassword1"
-                                aria-describedby="14" placeholder="Password">
-                            <small id="14" class="form-text text-muted">Please provide your personal user
-                                password</small>
+                        <div style="margin-top: 1rem;">
+                            <label for="inputTargetAccNum">Receiver Account Number</label>
+                            <input name="targetaccnum" type="text" class="form-control" id="inputTargetAccNum" aria-describedby="emailHelp"
+                            placeholder="Enter Account Number" disabled>
+                            <small id="emailHelp" class="form-text text-muted">Whos Account will be credited?</small>
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            <label for="inputTargetName">Receiver's Full Name</label>
+                            <input name="targetname" type="text" class="form-control" id="inputTargetName" aria-describedby="emailHelp"
+                            placeholder="Enter Account Number" disabled>
+                            <small id="emailHelp" class="form-text text-muted">The receiver's Full name</small>
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            <label for="inputAmount">Transaction Amount</label>
+                            <input name="amount" type="text" class="form-control" id="inputAmount" aria-describedby="emailHelp"
+                                placeholder="Enter Account Number" disabled>
+                            <small id="emailHelp" class="form-text text-muted">How much money will be
+                                transferred</small>
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            <label for="inputNote">Note</label>
+                            <input name="note" type="text" class="form-control" id="inputNote" aria-describedby="emailHelp"
+                            placeholder="Enter Note" disabled>
+                            <small id="emailHelp" class="form-text text-muted">Sender's Note</small>
                         </div><br><br>
-                        <button id="cancelBtn" class="btn btn-secondary">Cancel</button>
-                        <button id="confirmBtn" style="float: right;" type="submit"
-                            class="btn btn-primary">Submit</button>
+                        <button style="float: right;" id="returnBtn" class="btn btn-info">Return</button>
+                        <!-- <button id="confirmBtn" style="float: right;" type="submit" -->
+                        <!-- class="btn btn-primary">Submit</button><br><br> -->
                     </div>
                 </form>
             </div>
@@ -212,15 +229,15 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="js/bootstrap.js"></script>
-    <script src="myjs/newUser.js"></script>
+    <script src="myjs/admin_transfer_receipt.js"></script>
     <script>
-        const log = document.querySelector("#cancelBtn")
+        const log = document.querySelector("#returnBtn")
         log.addEventListener("click", (e) => {
             e.preventDefault()
             window.location.href = "admin_dashboard.html"
         })
         const log1 = document.querySelector("#logoutBtn")
-        log1.addEventListener("click", (e)=>{
+        log1.addEventListener("click", (e) => {
             e.preventDefault()
             delete localStorage.admin;
             sessionStorage.clear();
