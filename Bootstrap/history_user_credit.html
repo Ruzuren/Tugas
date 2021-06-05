@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="mycss/reset.css">
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-    <title>User Dashboard</title>
+    <title>Credit History</title>
 </head>
 
 <body>
@@ -28,7 +28,7 @@
 
     <div class="container-fluid">
         <div class="row flex-nowrap">
-            <div style="height: 600px" class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light">
+            <div style="height: 600px" class="col-2 bg-light">
                 <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
                     <!-- <a href="#"
                         class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-black text-decoration-none">
@@ -54,9 +54,9 @@
                         <li>
                             <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                                 <i class="fs-4 bi-book-half"></i> <span class="ms-1 d-none d-sm-inline">History</span> </a>
-                            <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                            <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a href="history_user_credit.html" class="nav-link px-0"> <i class="bi bi-book-half ms-3"></i> <span
+                                    <a href="history_user_credit.html" class="nav-link px-0 active"> <i class="bi bi-book-half ms-3"></i> <span
                                             class="d-none d-sm-inline ms-1">Credit</span></a>
                                 </li>
                                 <li>
@@ -71,41 +71,23 @@
                 </div>
             </div>
 
-            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0">
-                <form>
-                    <div style="width: 40rem; float: left; margin-left: 4rem;" class="container-fluid">
-                        <br><br>
-                        <div>
-                            <label for="inputUsername">Username</label>
-                            <input name="Username" type="text" class="form-control" id="inputUsername" aria-describedby="emailHelp"
-                                placeholder="Username" disabled>
-                            <!-- <small id="emailHelp" class="form-text text-muted">How much money will be withdrawn</small> -->
-                        </div>
-                        <div style="margin-top: 1rem;">
-                            <label for="inputFullName">Full Name</label>
-                            <input name="Full Name" type="text" class="form-control" id="inputFullName" aria-describedby="emailHelp"
-                                placeholder="Full Name" disabled>
-                            <!-- <small id="emailHelp" class="form-text text-muted">Whos Account will be debited?</small> -->
-                        </div>
-                        <div style="margin-top: 1rem;">
-                            <label for="inputAccNum">Account Number</label>
-                            <input name="Account Number" type="text" class="form-control" id="inputAccNum" aria-describedby="emailHelp"
-                                placeholder="Account Number" disabled>
-                            <!-- <small id="emailHelp" class="form-text text-muted">Whos Account will be debited?</small> -->
-                        </div>
-                        <div style="margin-top: 1rem;">
-                            <label for="inputBalance">Account Balance</label>
-                            <input name="Balance" type="text" class="form-control" id="inputBalance" aria-describedby="emailHelp"
-                                placeholder="Account Balance" disabled>
-                            <!-- <small id="emailHelp" class="form-text text-muted">Whos Account will be debited?</small> -->
-                        </div>
-                        <br><br>
-                        <!-- <button id="cancelBtn" class="btn btn-secondary">Cancel</button>
-                        <button id="confirmBtn" style="float: right;" type="submit"
-                            class="btn btn-primary">Submit</button> -->
-                    </div>
-                </form>
-            </div>
+            
+            <div id="historyTable" class="pt-5 ps-5" class="col-10" style="width: 1100px;">
+                <table id="historytable" class="table table-stripped table-hover table-bordered">
+                    <thead class="table-primary">
+                        <tr>
+                        <th>Transaction ID</th>
+                        <th>Transaction Type</th>
+                        <th>Transaction Date</th>
+                        <th>Transaction Amount</th>
+                        <th>Transaction Sender</th>
+                        <th>Transaction Receiver</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot><tr></tr></tfoot>
+        
+                </table>
 
 
 
@@ -157,13 +139,12 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="js/bootstrap.js"></script>
-    <script src="myjs/user_dashboard.js"></script>
+    <script src="myjs/user_history_credit.js"></script>
     <script>
-        const log1 = document.querySelector("#logoutBtn")
-        log1.addEventListener("click", (e)=>{
+        const log = document.querySelector("#logoutBtn")
+        log.addEventListener("click", (e)=>{
             e.preventDefault()
             delete localStorage.user;
-            sessionStorage.clear();
             window.location.href = "index.html"
         })
     </script>

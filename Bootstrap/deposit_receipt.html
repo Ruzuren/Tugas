@@ -128,37 +128,31 @@
                         <br><br>
                         <div>
                             <label for="inputDate">Transaction Date</label>
-                            <input type="text" class="form-control" id="inputDate" aria-describedby="emailHelp"
+                            <input name="date" type="text" class="form-control" id="inputDate" aria-describedby="emailHelp"
                                 placeholder="Datetime" disabled>
                             <small id="emailHelp" class="form-text text-muted">Current Datetime</small>
                         </div>
                         <div style="margin-top: 1rem;">
-                            <label for="inputType">Transaction Type</label>
-                            <input type="text" class="form-control" id="inputType" aria-describedby="emailHelp"
-                            placeholder="Deposit" disabled>
-                            <small id="emailHelp" class="form-text text-muted">Transaction type</small>
-                        </div>
-                        <div style="margin-top: 1rem;">
                             <label for="inputAccNum">Account Number</label>
-                            <input type="text" class="form-control" id="inputAccNum" aria-describedby="emailHelp"
+                            <input name="senderaccnum" type="text" class="form-control" id="inputAccNum" aria-describedby="emailHelp"
                             placeholder="Account Number" disabled>
                             <small id="emailHelp" class="form-text text-muted">Whos Account will be credited?</small>
                         </div>
                         <div style="margin-top: 1rem;">
                             <label for="inputFullName">Account Owner</label>
-                            <input type="text" class="form-control" id="inputFullName" aria-describedby="emailHelp"
+                            <input name="sendername" type="text" class="form-control" id="inputFullName" aria-describedby="emailHelp"
                             placeholder="Full Name" disabled>
                             <small id="emailHelp" class="form-text text-muted">Account owner Full Name</small>
                         </div>
                         <div style="margin-top: 1rem;">
                             <label for="inputAmount">Transaction Amount</label>
-                            <input type="text" class="form-control" id="inputAmount" aria-describedby="emailHelp"
+                            <input name="amount" type="text" class="form-control" id="inputAmount" aria-describedby="emailHelp"
                                 placeholder="Transaction Amount" disabled >
                             <small id="emailHelp" class="form-text text-muted">How much money will be deposited?</small>
                         </div>
 
                         <br><br>
-                        <button style="float: right;" id="cancelBtn" class="btn btn-info">Return</button>
+                        <button style="float: right;" id="returnBtn" class="btn btn-info">Return</button>
                         <!-- <button id="confirmBtn" style="float: right;" type="submit" -->
                         <!-- class="btn btn-primary">Submit</button><br><br> -->
                     </div>
@@ -214,11 +208,19 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="js/bootstrap.js"></script>
+    <script src="myjs/deposit_receipt.js"></script>
     <script>
-        const log = document.querySelector("#cancelBtn")
+        const log = document.querySelector("#returnBtn")
         log.addEventListener("click", (e) => {
             e.preventDefault()
             window.location.href = "admin_dashboard.html"
+        })
+        const log1 = document.querySelector("#logoutBtn")
+        log1.addEventListener("click", (e) => {
+            e.preventDefault()
+            delete localStorage.admin;
+            sessionStorage.clear();
+            window.location.href = "index.html"
         })
     </script>
 </body>

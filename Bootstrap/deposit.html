@@ -20,7 +20,7 @@
                 iBanking
             </a>
             <form class="d-flex">
-                <button style="color: white;" class="btn btn-outline-danger" type="submit">Logout</button>
+                <button id="logoutBtn" style="color: white;" class="btn btn-outline-danger" type="submit">Logout</button>
             </form>
         </div>
     </nav>
@@ -47,16 +47,16 @@
                             </a>
                             <ul class="collapse nav flex-column ms-1" id="submenu4" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a href="#allUsersTable" class="nav-link px-0"> <i class="bi bi-people ms-3"></i>
+                                    <a href="list_all_users.html" class="nav-link px-0"> <i class="bi bi-people ms-3"></i>
                                         <span class="d-none d-sm-inline ms-1">All Users</span></a>
                                 </li>
                                 <li>
-                                    <a href="#allAccountsTable" class="nav-link px-0"> <i
+                                    <a href="list_all_accounts.html" class="nav-link px-0"> <i
                                             class="bi bi-people-fill ms-3"></i> <span
                                             class="d-none d-sm-inline ms-1">All Accounts</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-0"> <i class="bi bi-cash-coin ms-3"></i> <span
+                                    <a href="list_all_transactions.html" class="nav-link px-0"> <i class="bi bi-cash-coin ms-3"></i> <span
                                             class="d-none d-sm-inline ms-1">All Transactions</span></a>
                                 </li>
                             </ul>
@@ -67,11 +67,11 @@
                                     Search</span> </a>
                             <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a href="#" class="nav-link px-0"> <i class="bi bi-people ms-3"></i> <span
+                                    <a href="searchby_username.html" class="nav-link px-0"> <i class="bi bi-people ms-3"></i> <span
                                             class="d-none d-sm-inline ms-1">By Username</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-0"> <i class="bi bi-people-fill ms-3"></i> <span
+                                    <a href="searchby_accnum.html   " class="nav-link px-0"> <i class="bi bi-people-fill ms-3"></i> <span
                                             class="d-none d-sm-inline ms-1">By Account Number</span></a>
                                 </li>
                             </ul>
@@ -194,11 +194,20 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="js/bootstrap.js"></script>
+    <script src="myjs/deposit.js"></script>
     <script>
         const log = document.querySelector("#cancelBtn")
         log.addEventListener("click", (e) => {
             e.preventDefault()
+            sessionStorage.clear();
             window.location.href = "admin_dashboard.html"
+        })
+        const log1 = document.querySelector("#logoutBtn")
+        log1.addEventListener("click", (e) => {
+            e.preventDefault()
+            delete localStorage.admin;
+            sessionStorage.clear();
+            window.location.href = "index.html"
         })
     </script>
 </body>

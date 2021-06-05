@@ -28,6 +28,7 @@ CORS(app, resources={
     r"/*": cors_config
 })
 
+migrate = Migrate(app, db)
 #################################################################################################
 
 class Userz(db.Model):
@@ -62,7 +63,7 @@ class Transaction(db.Model):
     transaction_ammount = db.Column(db.Integer, nullable = False)
     transaction_description = db.Column(db.String(255))
     transaction_sender = db.Column(db.Integer, nullable = True)
-    transaction_sender_branch = db.Column(db.String(25), nullable = True)
+    transaction_receiver = db.Column(db.Integer, nullable = True)
     branch_id = db.Column(db.String, db.ForeignKey('branch.branch_number'), nullable = False) # FK
     account_id = db.Column(db.Integer, db.ForeignKey('account.account_number'), nullable = False) # FK
 
@@ -144,7 +145,7 @@ def get_transactionData(id):
 def return_transaction(t):
     acc = Account.query.filter_by(account_number=t.account_id).first()
     return {'transaction_id': t.transaction_id, "transaction_date": t.transaction_date, "transaction_type": t.transaction_type,
-    "transaction_receiver":t.account_id, "full_name": acc.x.full_name, "transaction_amount": t.transaction_ammount, 
+    "transaction_receiver":t.transaction_receiver, "full_name": acc.x.full_name, "transaction_amount": t.transaction_ammount, 
     "transaction_sender":t.transaction_sender}
 
 # def return_save(t):
@@ -1576,8 +1577,8 @@ def get_account_id():
 
     })
     
-@app.route('/user/history/', methods = ["GET"])
-def get_history_fe():
+@app.route('/user/history/debit/', methods = ["GET"])
+def get_history_debit():
     
     token = request.headers.get("token")
     jwt = jwt_dec("secret", token)
@@ -1595,7 +1596,30 @@ def get_history_fe():
             "transaction_amount" : trans.transaction_ammount,
             # "transaction_description" : trans.transaction_description,
             "transaction_sender" : trans.transaction_sender,
-            "transaction_receiver" : trans.account_id
+            "transaction_receiver" : trans.transaction_receiver
+        }for trans in transaction
+    ])
+
+@app.route('/user/history/credit/', methods = ["GET"])
+def get_history_credit():
+    
+    token = request.headers.get("token")
+    jwt = jwt_dec("secret", token)
+
+    user = Userz.query.filter_by(user_id = jwt["id"]).first()
+    acc = Account.query.filter_by(user_id = user.user_id).first()
+    transaction = Transaction.query.filter_by(transaction_receiver = acc.account_number).all() 
+
+    # can only view his own data    
+    return jsonify([
+        {
+            "transaction_id" : trans.transaction_id,
+            "transaction_type" : trans.transaction_type,
+            "transaction_date" : trans.transaction_date,
+            "transaction_amount" : trans.transaction_ammount,
+            # "transaction_description" : trans.transaction_description,
+            "transaction_sender" : trans.transaction_sender,
+            "transaction_receiver" : trans.transaction_receiver
         }for trans in transaction
     ])
 
@@ -1694,19 +1718,16 @@ def transfer_money_fe():
         transaction_date = data['date'],
         # transaction_date = datetime.now,
         transaction_ammount = data['amount'], #duit
-        account_id = data['targetaccnum'],
+        account_id = acc.account_number,
         transaction_description = data['note'],
         branch_id = acc.branch_id,
         transaction_sender = acc.account_number,
-        transaction_sender_branch = acc1.branch_id
-        # transaction_sender_branch = data['transaction_sender_branch']
-        #transaction_sender = accountx.account_number,
+        transaction_receiver = acc1.account_number
     )
     db.session.add(t)
 
     # update balance sender
-    # acc = Account.query.filter_by(account_number=data['transaction_sender']).first()
-    temp1 = acc.account_balance 
+    temp1 = acc.account_balance
     temp12 = data['amount']
     temp123 = int(temp1) - int(temp12)
     acc.account_balance = temp123
@@ -1721,14 +1742,6 @@ def transfer_money_fe():
     # commit
     db.session.commit()
 
-    # data sender
-    branch = Branch.query.filter_by(branch_number=acc.branch_id)
-    # user = Userz.query.filter_by(user_id=acc.user_id)
-    # userx dan accountx diatas
-
-    # data receiver
-    user1 = Userz.query.filter_by(user_id=acc1.user_id)
-    branch1 = Branch.query.filter_by(branch_number=acc1.branch_id)
 
     return jsonify([
         {
@@ -1816,16 +1829,18 @@ def withdraw_money_fe():
     data = request.get_json()
     # check saldo !< withdraw
     acc_test = Account.query.filter_by(account_number=data['accnum']).first()
-    if acc_test.account_balance < data['ammount']: # insufficent balance
+    ttemp = int(acc_test.account_balance)
+    ttemp1 = int(data['amount'])
+    if ttemp < ttemp1: # insufficent balance
+
     #if accountx.account_balance < data['transaction_ammount']
         return jsonify({
             'error' : 'Bad Request',
             'message' : 'Insufficent account balance to do this operation'
         }), 400
     else: 
-        tempy = acc_test.account_balance
-        #tempy = accountx.account_balance
-        tempy1 = tempy - data['ammount']
+        tempy = int(acc_test.account_balance)
+        tempy1 = tempy - int(data['amount'])
         if tempy1 < 150000: # balance will be less than minimum account ballance required
             return jsonify({
             'error' : 'Bad Request',
@@ -1833,27 +1848,21 @@ def withdraw_money_fe():
             }), 400
         else:
             t = Transaction(
-                transaction_type = data['transaction_type', 'withdraw'],
+                transaction_type = "withdraw",
                 transaction_date = data['date'],
-                transaction_ammount = data['ammount'],
-                transaction_sender = data['account_id'],
-                branch_id = data['branch_id']
-                #account_id = accountx.account_number,
-                #branach_id = accountx.branch_id
+                transaction_ammount = data['amount'],
+                transaction_sender = data['accnum'],
+                branch_id = acc_test.branch_id,
+                account_id = data['accnum']
             )
             db.session.add(t)
             acc = Account.query.filter_by(account_number=data['accnum']).first()
-            temp = acc.account_balance
-            #temp = accountx.account_balance
-            temp2 = temp - data['ammount']
+            temp = int(acc.account_balance)
+            temp2 = temp - int(data['amount'])
             acc.account_balance = temp2
-            #accountx.account_balance = temp2
             acc.last_transaction = data['date']
-            #accountx.last_transaction = data['transaction_date']
             db.session.commit()
             
-            branch = Branch.query.filter_by(branch_number=data['branch_id'])
-            #branch = Branch.query.filter_by(branch_number=accountx.branch_id)
             user = Userz.query.filter_by(user_id=acc.user_id)
             # pake userx diatas
             return jsonify([
@@ -1867,6 +1876,42 @@ def withdraw_money_fe():
                     "name": acc.x.full_name
                 }
             ]), 201
+
+###########################################
+
+# Deposit (Admin)
+@app.route('/admin/deposit/', methods = ["POST"])
+def deposit_money_fe():
+    data = request.get_json()
+    acc_test = Account.query.filter_by(account_number=data['accnum']).first()
+
+    t = Transaction(
+        transaction_type = "deposit",
+        transaction_date = data['date'],
+        transaction_ammount = data['amount'],
+        transaction_receiver = data['accnum'],
+        branch_id = acc_test.branch_id,
+        account_id = data['accnum']
+    )
+    db.session.add(t)
+    acc = Account.query.filter_by(account_number=data['accnum']).first()
+    temp = int(acc.account_balance)
+    temp2 = temp + int(data['amount'])
+    acc.account_balance = temp2
+    acc.last_transaction = data['date']
+    db.session.commit()
+    
+    return jsonify([
+        {
+            "Transaction ID": t.transaction_id,
+            "date": t.transaction_date,
+            "transaction_type": t.transaction_type,
+            "account_number": t.transaction_sender,
+            "amount": data['amount'],
+            "account_balance": t.z.account_balance,
+            "name": acc.x.full_name
+        }
+    ]), 201
 
 ###########################################
 
@@ -1886,9 +1931,9 @@ def transfer_money_admin_fe():
         transaction_ammount = data['amount'], #duit
         transaction_description = data['note'],
         transaction_sender = acc.account_number,
-        transaction_sender_branch = acc1.branch_id,
+        transaction_receiver = data['targetaccnum'],
         branch_id = acc.branch_id, #sender branch id
-        account_id = data['targetaccnum'] #target branch id
+        account_id = acc.account_number 
     )
     db.session.add(t)
 

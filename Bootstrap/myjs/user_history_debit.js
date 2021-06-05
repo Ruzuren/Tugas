@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
     } 
 
     
-    fetch('http://localhost:5000/user/history/', {
+    fetch('http://localhost:5000/user/history/debit/', {
         method: "GET",
         headers: {
             'Content-Type': 'application/json',

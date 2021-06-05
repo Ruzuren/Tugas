@@ -37,15 +37,29 @@
                                 <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="transfer_user.html" class="nav-link align-middle px-0 active">
-                                <i class="fs-4 bi-box-arrow-right"></i> <span class="ms-1 d-none d-sm-inline">Transfer</span>
-                            </a>
+                        <li>
+                            <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-box-arrow-right"></i> <span class="ms-1 d-none d-sm-inline">Transaction</span> </a>
+                            <ul class="collapse show nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
+                                <li class="w-100">
+                                    <a href="transfer_user.html" class="nav-link px-0 active"> <i class="bi bi-box-arrow-right ms-3"></i> <span
+                                            class="d-none d-sm-inline ms-1">Transfer</span></a>
+                                </li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a href="history_user.html" class="nav-link align-middle px-0">
-                                <i class="fs-4 bi-book-half"></i> <span class="ms-1 d-none d-sm-inline">History</span>
-                            </a>
+                        <li>
+                            <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-book-half"></i> <span class="ms-1 d-none d-sm-inline">History</span> </a>
+                            <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                                <li class="w-100">
+                                    <a href="history_user_credit.html" class="nav-link px-0"> <i class="bi bi-book-half ms-3"></i> <span
+                                            class="d-none d-sm-inline ms-1">Credit</span></a>
+                                </li>
+                                <li>
+                                    <a href="history_user_debit.html" class="nav-link px-0"> <i class="bi bi-book-half ms-3"></i> <span
+                                            class="d-none d-sm-inline ms-1">Debit</span></a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                     <hr>
