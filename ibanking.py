@@ -1516,7 +1516,10 @@ def get_dormant():
                             } for acc in account
                         ])
                     
-
+#========================================================================================================================#
+#========================================================================================================================#
+#========================================================================================================================#
+#========================================================================================================================#
 @app.route('/login/user', methods = ["POST"])
 def loginUser():
     login = authz()
@@ -1971,6 +1974,35 @@ def transfer_money_admin_fe():
         }
     ]), 201
 
+
+###########################################
+
+# search user by id (Admin)
+@app.route('/user/<id>/', methods = ["GET"])
+def get_user_fe(id):
+    user = get_userData(id)
+    return return_user(user), 201
+
+###########################################
+
+# update / edit user data by id (Admin)
+@app.route('/user_update/<id>/', methods=['PUT'])
+def update_user_fe(id):
+    data = request.get_json()
+    user = get_userData(id)
+    if 'user_name' in data:
+        user.user_name=data['user_name']
+    if 'full_name' in data:
+        user.full_name=data['full_name']
+    if 'email' in data:
+        user.email=data['email']
+    if 'is admin' in data:
+        user.is_admin=data['is_admin']
+    if 'password' in data:
+        # if data['password'] != "":   
+        user.password = get_hash(data['password'])
+    db.session.commit()
+    return jsonify({'Success': 'User data has been updated'}, return_user(user))
 
 ###########################################
 @app.after_request
