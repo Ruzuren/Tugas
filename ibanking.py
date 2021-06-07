@@ -2125,8 +2125,9 @@ def get_user_number_fe():
 # list account that ever went dormant (has no transaction for 3 months straight). show account information and dormant period
 @app.route('/reporting/dormant/', methods = ["GET"])
 def get_dormant_fe():
-    data = request.get_json()
+    # data = request.get_json()
     date1 = f"{datetime.day} - {datetime.month} - {datetime.year}"
+    print(date1)
     x = date1.split("-")
     y, m, d = int(x[0]), int(x[1]), int(x[2])
     if m < 4:
