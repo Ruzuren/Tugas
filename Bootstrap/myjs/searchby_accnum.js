@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const updateForm = document.querySelector('#confirmBtn');
     updateForm.addEventListener('click', (e) => {
         e.preventDefault();
-        window.location.href = "admin_edit.html?id=" + AccNum.value
+        window.location.href = "admin_edit2.html?id=" + AccNum.value
     })
 
 

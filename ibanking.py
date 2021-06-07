@@ -1792,23 +1792,23 @@ def search_user_fe(username):
             })
     return jsonify(all)
 
-# #search by account number
-# @app.route('/search_acc/<accnum>')
-# def search_accnum_fe(accnum):
-#     all = []
-#     with engine.connect() as connection:
-#         qry = text("SELECT * FROM account WHERE account_number ILIKE'%{}%' ORDER BY account_number".format(accnum))
-#         result = connection.execute(qry)
-#         for i in result:
-#             all.append({
-#                 'account_number': i[0],
-#                 'account_type': i[2],
-#                 'account_balance' : i[1],
-#                 'last_transaction' : i[3],
-#                 'user_id' : i[4],
-#                 'branch_id' : i[5]
-#             })
-#     return jsonify(all)
+#search by account number
+@app.route('/searchby_accnum/<accnum>')
+def search_accnum_fe(accnum):
+    all = []
+    with engine.connect() as connection:
+        qry = text("SELECT * FROM account WHERE account_number ILIKE'%{}%' ORDER BY account_number".format(accnum))
+        result = connection.execute(qry)
+        for i in result:
+            all.append({
+                'account_number': i[0],
+                'account_type': i[2],
+                'account_balance' : i[1],
+                'last_transaction' : i[3],
+                'user_id' : i[4],
+                'branch_id' : i[5]
+            })
+    return jsonify(all)
 
 #search by userid
 @app.route('/search_user/<userid>')
@@ -2060,6 +2060,109 @@ def update_account_fe1(iid):
     db.session.commit()
     return jsonify({'Success': 'Account data has been updated'}, return_account(acc))
 
+############################################
+############################################ REPORTING
+############################################
+
+# total balance (user balance) (Admin)
+@app.route('/report/balance/', methods = ["GET"])
+def get_total_balance_fe():    
+    all = []
+    with engine.connect() as connection:
+        qry = text("SELECT sum(account_balance) FROM Account")
+        result = connection.execute(qry)
+        #return jsonify({'The total balance is' : result})
+        for i in result:
+            all.append({
+                'balance':i[0]
+            })
+        return jsonify(all)
+
+
+# total credit (deposit) (Admin)
+@app.route('/report/credit/', methods = ["GET"])
+def get_total_transfer_fe():
+    all = []
+    with engine.connect() as connection:
+        qry = text("SELECT sum(transaction_ammount) FROM Transaction where transaction_type = 'deposit' or transaction_type = 'transfer' ")
+        result = connection.execute(qry)
+        #return jsonify({'The total credit is' : result})
+        for i in result:
+            all.append({
+                'credit':i[0]
+            }) 
+        return jsonify(all)
+
+# total debit (withdraw) (admin)
+@app.route('/report/debit/', methods = ["GET"])
+def get_total_debit_fe():
+    all = []
+    with engine.connect() as connection:
+        qry = text("SELECT sum(transaction_ammount) FROM Transaction where transaction_type = 'withdraw' or transaction_type = 'transfer' ")
+        result = connection.execute(qry)
+        #return jsonify({'The total debit is' : result})
+        for i in result:
+            all.append({
+                'debit':i[0]
+            })
+        return jsonify(all) 
+
+# account number
+@app.route('/report/accnumber/', methods = ["GET"])
+def get_account_number_fe():
+    return jsonify({
+    'accounts' : Account.query.count()
+    }), 201
+
+# user number
+@app.route('/report/usernumber/', methods = ["GET"])
+def get_user_number_fe():
+    return jsonify({
+    'users' : Userz.query.count()
+    }), 201
+
+###########################################
+# list account that ever went dormant (has no transaction for 3 months straight). show account information and dormant period
+@app.route('/reporting/dormant/', methods = ["GET"])
+def get_dormant_fe():
+    data = request.get_json()
+    date1 = f"{datetime.day} - {datetime.month} - {datetime.year}"
+    x = date1.split("-")
+    y, m, d = int(x[0]), int(x[1]), int(x[2])
+    if m < 4:
+        y -= 1
+        if m == 3:
+            m1 = 12
+        if m == 2:
+            m1 = 11
+        if m == 1:
+            m1 = 10
+        date2 = str(y)+"-"+str(m1)+"-"+str(d)
+        account = Account.query.filter_by(last_transaction < date2).all
+        return jsonify([
+            {
+                "account_number": acc.account_number,
+                "Account Type": acc.account_type,
+                "account_balance": acc.account_balance,
+                "last_transaction": acc.last_transaction,
+                "full_name": acc.x.full_name,
+                "dormant_period": get_dormant_period(data["today's_date"], acc.last_transaction)
+            } for acc in account
+        ])
+    if m > 3:
+        m -= 3
+        date3 = str(y)+"-"+str(m)+"-"+str(d)
+        account = Account.query.filter(Account.last_transaction < date3).all()
+        return jsonify([
+            {
+                "Account Number": acc.account_number,
+                "Account Type": acc.account_type,
+                "Account Balance": acc.account_balance,
+                "Last Transaction": acc.last_transaction,
+                "Owner Name": acc.x.full_name,
+                "Dormant Period": get_dormant_period(data["today's_date"], acc.last_transaction)
+            } for acc in account
+        ])
 ###########################################
 @app.after_request
 def after_request(response):
