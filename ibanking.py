@@ -132,6 +132,9 @@ def return_branch(b):
 def get_accountData(id):
     return Account.query.filter_by(account_number=id).first_or_404()
 
+def get_accountData1(id):
+    return Account.query.filter_by(user_id=id).first_or_404()
+
 def return_account(a):
     return {'account_number': a.account_number,"account_type":a.account_type, "user_id":a.user_id, "full_name":a.x.full_name, "branch_id": a.y.branch_number, 
     "account_balance":a.account_balance, "branch_name":a.y.branch_name, "last_transaction": a.last_transaction}
@@ -1772,8 +1775,8 @@ def owner_search(id):
 
 ###########################################
 
-#search by username
-@app.route('/search_user/<username>')
+# search by username
+@app.route('/searchby_username/<username>/')
 def search_user_fe(username):
     all = []
     with engine.connect() as connection:
@@ -1789,23 +1792,23 @@ def search_user_fe(username):
             })
     return jsonify(all)
 
-#search by account number
-@app.route('/search_acc/<accnum>')
-def search_accnum_fe(accnum):
-    all = []
-    with engine.connect() as connection:
-        qry = text("SELECT * FROM account WHERE account_number ILIKE'%{}%' ORDER BY account_number".format(accnum))
-        result = connection.execute(qry)
-        for i in result:
-            all.append({
-                'account_number': i[0],
-                'account_type': i[2],
-                'account_balance' : i[1],
-                'last_transaction' : i[3],
-                'user_id' : i[4],
-                'branch_id' : i[5]
-            })
-    return jsonify(all)
+# #search by account number
+# @app.route('/search_acc/<accnum>')
+# def search_accnum_fe(accnum):
+#     all = []
+#     with engine.connect() as connection:
+#         qry = text("SELECT * FROM account WHERE account_number ILIKE'%{}%' ORDER BY account_number".format(accnum))
+#         result = connection.execute(qry)
+#         for i in result:
+#             all.append({
+#                 'account_number': i[0],
+#                 'account_type': i[2],
+#                 'account_balance' : i[1],
+#                 'last_transaction' : i[3],
+#                 'user_id' : i[4],
+#                 'branch_id' : i[5]
+#             })
+#     return jsonify(all)
 
 #search by userid
 @app.route('/search_user/<userid>')
@@ -1817,10 +1820,10 @@ def search_userid_fe(userid):
         for i in result:
             all.append({
                 'user_id': i[0],
-                'user_name': i[2],
-                'full_name' : i[1],
-                'password' : i[3],
-                'email' : i[4],
+                'full_name' : i[2],
+                'user_name': i[1],
+                'email' : i[3],
+                'password' : i[4],
             })
     return jsonify(all)
 
@@ -2003,6 +2006,59 @@ def update_user_fe(id):
         user.password = get_hash(data['password'])
     db.session.commit()
     return jsonify({'Success': 'User data has been updated'}, return_user(user))
+
+###########################################
+
+# seach account by id (Admin)
+@app.route('/acc/<id>/', methods = ["GET"])
+def get_account_fe(id):
+    account = get_accountData(id)
+    return return_account(account)
+
+# seach account by id (Admin)
+@app.route('/acc1/<uid>/', methods = ["GET"])
+def get_account_fe1(uid):
+    account = get_accountData1(uid)
+    return return_account(account)
+
+###########################################
+
+# update / edit account by id (Admin)
+@app.route('/acc_update/<id>/', methods=['PUT'])
+def update_account_fe(id):
+    data = request.get_json()
+    account = get_accountData(id)
+    if 'balance' in data:
+        account.account_balance=data['balance']
+    if 'date' in data:
+        account.last_transaction=data['date']
+    if 'branch_id' in data:
+        account.branch_id=data['branch_id']
+    db.session.commit()
+    return jsonify({'Success': 'Account data has been updated'}, return_account(account))
+
+@app.route('/acc_update1/<iid>/', methods=['PUT'])
+def update_account_fe1(iid):
+    data = request.get_json()
+    user = get_userData(iid)
+    acc = get_accountData1(user.user_id)
+    if 'balance' in data:
+        acc.account_balance=data['balance']
+    if 'date' in data:
+        acc.last_transaction=data['date']
+    if 'user_name' in data:
+        user.user_name=data['user_name']
+    if 'full_name' in data:
+        user.full_name=data['full_name']
+    if 'email' in data:
+        user.email=data['email']
+    if 'is admin' in data:
+        user.is_admin=data['is_admin']
+    if 'password' in data:
+        # if data['password'] != "":   
+        user.password = get_hash(data['password'])
+    db.session.commit()
+    return jsonify({'Success': 'Account data has been updated'}, return_account(acc))
 
 ###########################################
 @app.after_request

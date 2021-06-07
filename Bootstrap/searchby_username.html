@@ -20,7 +20,7 @@
                 iBanking
             </a>
             <form class="d-flex">
-                <button style="color: white;" class="btn btn-outline-danger" type="submit">Logout</button>
+                <button id="logoutBtn" style="color: white;" class="btn btn-outline-danger" type="submit">Logout</button>
             </form>
         </div>
     </nav>
@@ -122,8 +122,22 @@
                 </div>
             </div>
 
-            content
-
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0">
+                <form>
+                    <div style="width: 40rem; float: left; margin-left: 4rem;" class="container-fluid">
+                        <br><br>
+                        <div style="margin-top: 1rem;">
+                            <label for="inputAccNum">Username</label>
+                            <input name="updatename" type="text" class="form-control" id="inputAccNum" aria-describedby="emailHelp"
+                                placeholder="Username">
+                        </div>
+                        <br><br>
+                        <button id="cancelBtn" class="btn btn-secondary">Cancel</button>
+                        <button id="confirmBtn" style="float: right;" type="submit" class="btn btn-primary"
+                            title="To confirmation screen">Submit</button>
+                    </div>
+                </form>
+            </div>
 
 
         </div>
@@ -174,6 +188,22 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="js/bootstrap.js"></script>
+    <script src="myjs/searchby_username.js"></script>
+    <script>
+        const log = document.querySelector("#cancelBtn")
+        log.addEventListener("click", (e) => {
+            e.preventDefault()
+            sessionStorage.clear();
+            window.location.href = "admin_dashboard.html"
+        })
+        const log1 = document.querySelector("#logoutBtn")
+        log1.addEventListener("click", (e)=>{
+            e.preventDefault()
+            delete localStorage.admin;
+            sessionStorage.clear();
+            window.location.href = "index.html"
+        })
+    </script>
 </body>
 
 </html>

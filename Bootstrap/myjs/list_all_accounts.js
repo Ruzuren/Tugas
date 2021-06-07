@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
         viewbutton.appendChild(insideButton)
         viewbutton.onclick = () => {
             // pindah ke view.html dengan querystring data.id
-            window.location.href = "account_review.html?id=" + data.user_id
+            window.location.href = "account_review.html?id=" + data.account_number
         }
 
         for (prop in data) {

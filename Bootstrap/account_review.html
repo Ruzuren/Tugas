@@ -20,7 +20,7 @@
                 iBanking
             </a>
             <form class="d-flex">
-                <button style="color: white;" class="btn btn-outline-danger" type="submit">Logout</button>
+                <button id="logoutBtn" style="color: white;" class="btn btn-outline-danger" type="submit">Logout</button>
             </form>
         </div>
     </nav>
@@ -125,19 +125,39 @@
             <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0">
                 <form>
                     <div style="width: 40rem; float: left; margin-left: 4rem;" class="container-fluid">
-                        <!-- <div><br><br>
-                            <label for="inputAmount">Transaction Amount</label>
-                            <input type="text" class="form-control" id="inputAmount" aria-describedby="emailHelp"
-                                placeholder="Transaction Amount">
-                            <small id="emailHelp" class="form-text text-muted">How much money will be deposited?</small>
-                        </div> -->
-                        <br><br>
-                        <div style="margin-top: 1rem;">
+                        <div><br><br>
                             <label for="inputAccNum">Account Number</label>
-                            <input type="text" class="form-control" id="inputAccNum" aria-describedby="emailHelp"
-                                placeholder="Enter Account Number">
-                            <small id="emailHelp" class="form-text text-muted">Whos Account will be credited?</small>
-                        </div><br><br>
+                            <input name="updateaccnum" type="text" class="form-control" id="inputAccNum" placeholder="User ID" disabled>
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            <label for="inputUserID">User ID</label>
+                            <input name="updateid" type="text" class="form-control" id="inputUserID" aria-describedby="emailHelp"
+                                placeholder="UserID" disabled>
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            <label for="inputBranch">Branch ID</label>
+                            <input name="updatebranch" type="text" class="form-control" id="inputBranch" aria-describedby="emailHelp"
+                                placeholder="UserID">
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            <label for="inputName">Full Name</label>
+                            <input name="updatename" type="text" class="form-control" id="inputName" aria-describedby="emailHelp"
+                                placeholder="Full Name">
+                            <small id="emailHelp" class="form-text text-muted">if you want to change Full Name</small>
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            <label for="inputBalance">Account Balance</label>
+                            <input name="updatebalance" type="text" class="form-control" id="inputBalance" aria-describedby="emailHelp"
+                                placeholder="Username">
+                            <small id="emailHelp" class="form-text text-muted">if you want to change Account Balance</small>
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            <label for="inputDate">Last Transaction</label>
+                            <input name="updatedate" type="text" class="form-control" id="inputDate" aria-describedby="emailHelp"
+                                placeholder="Email">
+                            <small id="emailHelp" class="form-text text-muted">if you want to change Last Transaction</small>
+                        </div>
+                        <br><br>
                         <button id="cancelBtn" class="btn btn-secondary">Cancel</button>
                         <button id="confirmBtn" style="float: right;" type="submit"
                             class="btn btn-primary">Submit</button>
@@ -194,11 +214,20 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="js/bootstrap.js"></script>
+    <script src="myjs/account_review.js"></script>
     <script>
         const log = document.querySelector("#cancelBtn")
         log.addEventListener("click", (e) => {
             e.preventDefault()
+            sessionStorage.clear();
             window.location.href = "admin_dashboard.html"
+        })
+        const log1 = document.querySelector("#logoutBtn")
+        log1.addEventListener("click", (e) => {
+            e.preventDefault()
+            delete localStorage.admin;
+            sessionStorage.clear();
+            window.location.href = "index.html"
         })
     </script>
 </body>
